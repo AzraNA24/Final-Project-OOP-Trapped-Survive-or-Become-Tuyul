@@ -1,36 +1,45 @@
 using UnityEngine;
 
-public class ButtonActionHandler : MonoBehaviour
+public class Button: MonoBehaviour
 {
     public Animator animator;
 
     public void OnDrinkPotionButtonPressed()
     {
-        animator.SetTrigger("Drink");
-        StartCoroutine(ReturnToStanceAfterAnimation("Drink"));
+        TriggerAnimation("Drink");
     }
 
     public void OnLongRangeButtonPressed()
     {
-        animator.SetTrigger("LongRange");
-        StartCoroutine(ReturnToStanceAfterAnimation("LongRange"));
+        TriggerAnimation("LongRange");
     }
+
     public void OnShortRangeButtonPressed()
     {
-        animator.SetTrigger("ShortRange");
-        StartCoroutine(ReturnToStanceAfterAnimation("ShortRange"));
+        TriggerAnimation("ShortRange");
+    }
+
+    private void TriggerAnimation(string animationName)
+    {
+        animator.SetTrigger(animationName);
+        StartCoroutine(ReturnToStanceAfterAnimation(animationName));
     }
 
     private System.Collections.IEnumerator ReturnToStanceAfterAnimation(string animationName)
     {
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        while (!stateInfo.IsName(animationName))
+        AnimatorStateInfo stateInfo;
+        do
         {
             stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             yield return null;
         }
+        while (!stateInfo.IsName(animationName));
+
         yield return new WaitForSeconds(stateInfo.length);
 
-        animator.ResetTrigger("Drink"); 
+        animator.ResetTrigger("Drink");
+        animator.ResetTrigger("LongRange");
+        animator.ResetTrigger("ShortRange");
+
     }
 }
