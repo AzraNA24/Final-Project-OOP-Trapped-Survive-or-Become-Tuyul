@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movement;
     private float idleTimer = 0f; // Tracks time the player is stationary
     private float idleThreshold = 5f; // Time in seconds before switching to idle animation
-    private bool isAttacking = false;
+    // private bool isAttacking = false;
     private Vector2 lastMovement;
 
     void Update()
@@ -47,48 +47,48 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isIdle", false);
         }
 
-        if (Input.GetMouseButtonDown(0) && !isAttacking)
-        {
-            animator.SetFloat("Horizontal", movement.x);
-            animator.SetFloat("Vertical", movement.y);
-            StartCoroutine(PerformAttack());
-        }
+        // if (Input.GetMouseButtonDown(0) && !isAttacking)
+        // {
+        //     animator.SetFloat("Horizontal", movement.x);
+        //     animator.SetFloat("Vertical", movement.y);
+        //     // StartCoroutine(PerformAttack());
+        // }
 
     }
 
     void FixedUpdate()
     {
         // Move the player using Rigidbody2D
-        if (!isAttacking) // Prevent movement during attack
-        {
+        // if (!isAttacking) // Prevent movement during attack
+        // {
             Vector2 newPosition = rb.position + movement * moveSpeed * Time.fixedDeltaTime;
             rb.MovePosition(newPosition);
-        }
+        // }
     }
 
-    private IEnumerator PerformAttack()
-{
-    isAttacking = true;
-    float attackDirectionX = movement.x;
-    float attackDirectionY = movement.y;
+//     private IEnumerator PerformAttack()
+// {
+//     isAttacking = true;
+//     float attackDirectionX = movement.x;
+//     float attackDirectionY = movement.y;
 
-    // Pastikan nilai Horizontal/Vertical sesuai arah terakhir, atau default ke kanan/kiri
-    if (movement.sqrMagnitude == 0) // Jika pemain diam, gunakan nilai default
-    {
-        attackDirectionX = animator.GetFloat("Horizontal");
-        attackDirectionY = animator.GetFloat("Vertical");
-    }
+//     // Pastikan nilai Horizontal/Vertical sesuai arah terakhir, atau default ke kanan/kiri
+//     if (movement.sqrMagnitude == 0) // Jika pemain diam, gunakan nilai default
+//     {
+//         attackDirectionX = animator.GetFloat("Horizontal");
+//         attackDirectionY = animator.GetFloat("Vertical");
+//     }
 
-    animator.SetFloat("Horizontal", attackDirectionX);
-    animator.SetFloat("Vertical", attackDirectionY);
+//     animator.SetFloat("Horizontal", attackDirectionX);
+//     animator.SetFloat("Vertical", attackDirectionY);
 
-    animator.SetBool("isClick", true);
+//     animator.SetBool("isClick", true);
 
-    yield return new WaitForSeconds(0.5f);
+//     yield return new WaitForSeconds(0.5f);
 
-    // Kembalikan isClick ke false
-    animator.SetBool("isClick", false);
-    isAttacking = false;
-}
+//     // Kembalikan isClick ke false
+//     animator.SetBool("isClick", false);
+//     isAttacking = false;
+// }
 
 }

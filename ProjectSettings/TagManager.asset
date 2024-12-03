@@ -3,12 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Tuyul
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
@@ -17,8 +19,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Tuyul
+  - Loot
   - 
   - 
   - 
