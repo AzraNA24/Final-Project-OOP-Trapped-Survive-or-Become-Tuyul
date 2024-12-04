@@ -31,6 +31,12 @@ public class PlayerAttack : MonoBehaviour
             string objectLayer = LayerMask.LayerToName(Thing.gameObject.layer);
 
             Debug.Log($"Hit: {objectName}, Layer: {objectLayer}");
+            
+            LootBox lootBox = Thing.GetComponent<LootBox>();
+            if (lootBox != null)
+            {
+                lootBox.GenerateLoot();
+            }
         }
     }
     private void OnDrawGizmosSelected()
