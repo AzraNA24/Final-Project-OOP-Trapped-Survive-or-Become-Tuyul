@@ -366,7 +366,7 @@ Transform:
   m_GameObject: {fileID: 1423643175}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.61, y: -0.27, z: 0}
+  m_LocalPosition: {x: -0.05, y: -0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1466810389}
   AttackPoint: {fileID: 1423643176}
-  AttackRange: 0.45
+  AttackRange: 0.93
   Layer:
     serializedVersion: 2
     m_Bits: 12288
@@ -1860,11 +1860,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7502029825535283684, guid: 0e73ea6757575b14b86fbf571650966b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 7502029825535283684, guid: 0e73ea6757575b14b86fbf571650966b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7502029825535283684, guid: 0e73ea6757575b14b86fbf571650966b, type: 3}
       propertyPath: m_LocalPosition.z

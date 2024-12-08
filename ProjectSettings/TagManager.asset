@@ -43,3 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Stuffs Behind
+    uniqueID: 3789216431
+    locked: 0
+  - name: Jumpscare
+    uniqueID: 3827680305
+    locked: 0
