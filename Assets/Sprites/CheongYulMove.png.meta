@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2447a994b2aa51f429fa026142afc21b
+guid: 34545b6b643a4ba428436ec39b804672
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 65
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,211 +97,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Aventurine_0
+      name: CheongYulMove_0
       rect:
         serializedVersion: 2
-        x: 150
-        y: 254
-        width: 101
-        height: 100
+        x: 54
+        y: 77
+        width: 158
+        height: 277
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1044773e1ec5ea848947cab14e9bc299
-      internalID: -168054672
+      spriteID: fe22d308a05aae3479679f35b95456f1
+      internalID: -1099778303
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Aventurine_1
+      name: CheongYulMove_1
       rect:
         serializedVersion: 2
-        x: 276
-        y: 254
-        width: 101
-        height: 99
+        x: 265
+        y: 172
+        width: 25
+        height: 31
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 587019747ffe54240990ee6372f660d1
-      internalID: 963958257
+      spriteID: 3da1d48978912984c9525b25025f06cf
+      internalID: -92033700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Aventurine_2
+      name: CheongYulMove_2
       rect:
         serializedVersion: 2
-        x: 494
-        y: 250
-        width: 101
-        height: 75
+        x: 326
+        y: 75
+        width: 159
+        height: 274
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 973aad2e7ac3fb14992d7aa87b0277cf
-      internalID: -1689539952
+      spriteID: 3db7e8333b6eb05408bbe2ef0b7f9bfb
+      internalID: -370111468
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Aventurine_3
+      name: CheongYulMove_3
       rect:
         serializedVersion: 2
-        x: 622
-        y: 244
-        width: 100
-        height: 111
+        x: 631
+        y: 76
+        width: 160
+        height: 278
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42de26f1a47413c4e86ad9860081cb82
-      internalID: 1934969064
+      spriteID: 5bb3b1ad36e2e454f92e1803bd2db168
+      internalID: -1893881622
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Aventurine_4
+      name: CheongYulMove_4
       rect:
         serializedVersion: 2
-        x: 894
-        y: 200
-        width: 126
-        height: 126
+        x: 948
+        y: 74
+        width: 164
+        height: 276
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9815af2195f17a24ca118001366d4132
-      internalID: 920680499
+      spriteID: af1b5fc0105441f40b3abca1fd7810bf
+      internalID: 87255716
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Aventurine_5
+      name: CheongYulMove_5
       rect:
         serializedVersion: 2
-        x: 1063
-        y: 199
-        width: 122
-        height: 126
+        x: 260
+        y: 128
+        width: 37
+        height: 23
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3933f355402a7334c855cabad4428a7a
-      internalID: -1615443374
+      spriteID: 26acc9dbaddc5dd498381e90f3203b50
+      internalID: -1287422038
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Aventurine_6
+      name: CheongYulMove_6
       rect:
         serializedVersion: 2
-        x: 150
-        y: 123
-        width: 101
-        height: 111
+        x: 261
+        y: 78
+        width: 19
+        height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca7c51c1a13a1324997693ce4b8d38d5
-      internalID: -2013765697
+      spriteID: fbde19ac961a5f045b9d0df87e1100b4
+      internalID: -344537188
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Aventurine_7
+      name: CheongYulMove_7
       rect:
         serializedVersion: 2
-        x: 275
-        y: 123
-        width: 102
-        height: 111
+        x: 256
+        y: 42
+        width: 25
+        height: 28
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8371660c3fcb9fd4db313fb2c11aa2a6
-      internalID: -817863946
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Aventurine_8
-      rect:
-        serializedVersion: 2
-        x: 494
-        y: 119
-        width: 101
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6271078c6b555bb45a4c22ef0421d81e
-      internalID: -1399787271
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Aventurine_9
-      rect:
-        serializedVersion: 2
-        x: 619
-        y: 119
-        width: 102
-        height: 111
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a578381c8742f0b42a2b823db127f1e4
-      internalID: -507145381
+      spriteID: c765f48b6260426418ca2f9fcf321408
+      internalID: 257569787
       vertices: []
       indices: 
       edges: []
@@ -317,16 +275,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Aventurine_0: -168054672
-      Aventurine_1: 963958257
-      Aventurine_2: -1689539952
-      Aventurine_3: 1934969064
-      Aventurine_4: 920680499
-      Aventurine_5: -1615443374
-      Aventurine_6: -2013765697
-      Aventurine_7: -817863946
-      Aventurine_8: -1399787271
-      Aventurine_9: -507145381
+      CheongYulMove_0: -1099778303
+      CheongYulMove_1: -92033700
+      CheongYulMove_2: -370111468
+      CheongYulMove_3: -1893881622
+      CheongYulMove_4: 87255716
+      CheongYulMove_5: -1287422038
+      CheongYulMove_6: -344537188
+      CheongYulMove_7: 257569787
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
