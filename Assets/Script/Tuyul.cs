@@ -40,7 +40,7 @@ public class Tuyul : MonoBehaviour
         }
 
         playerCharacter.TakeDamage(AttackPower);
-        Debug.Log($"{Name} mengeluarkan jurus 'You Can Catch This Hand!'. {playerCharacter.Name} menerima {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
+        Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu'. {playerCharacter.Name} menerima {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
 
         // 40% chance to steal money
         if (random.NextDouble() < 0.4)

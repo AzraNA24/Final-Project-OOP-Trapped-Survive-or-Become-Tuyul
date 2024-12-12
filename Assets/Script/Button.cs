@@ -31,23 +31,23 @@ public class Button: MonoBehaviour
     }
 
     private void TriggerAnimation(string animationName)
-{
-    if (animator == null)
-    {
-        Debug.LogError("Animator not assigned!");
-        return;
-    } else{
-        Debug.Log("Animator assigned");
-    }
-    if (animator.runtimeAnimatorController == null)
-    {
-        Debug.LogError("AnimatorController is not assigned to the Animator!");
-        return;
-    }
+    {   
+        if (animator == null)
+        {
+            Debug.LogError("Animator not assigned!");
+            return;
+        } else{
+            Debug.Log("Animator assigned");
+        }
+        if (animator.runtimeAnimatorController == null)
+        {
+            Debug.LogError("AnimatorController is not assigned to the Animator!");
+            return;
+        }
 
-    animator.SetBool(animationName, true);
-    StartCoroutine(ReturnToStanceAfterAnimation(animationName));
-}
+        animator.SetBool(animationName, true);
+        StartCoroutine(ReturnToStanceAfterAnimation(animationName));
+    }
 
 
     private System.Collections.IEnumerator ReturnToStanceAfterAnimation(string animationName)
