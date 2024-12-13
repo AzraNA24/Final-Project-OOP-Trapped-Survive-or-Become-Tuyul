@@ -73,6 +73,7 @@ public class Aventurine : Tuyul
     {
         playerCharacter.TakeDamage(AttackPower);
         TuyulAnim.SetTrigger("Throws");
-        Debug.Log($"{Name} mengeluarkan jurus 'You Can Catch This Hand!' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
+        Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
     }
+
 }
