@@ -1,17 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Aventurine : Tuyul
+public class ChaengYul : Tuyul
 {
-    public Aventurine()
+    public ChaengYul()
     {
-        Name = "Aventurine; The Sparkling Trickster";
-        maxHealth = 50;
+        Name = "ChaengYul; Bestie of Pocong";
+        maxHealth = 200;
         AttackPower = 15;
-        Money = 30;
+        Money = 100;
     }
 
     public override bool TakeDamage(int damage, Player playerCharacter)
@@ -34,39 +31,41 @@ public class Aventurine : Tuyul
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
             }
         }
-        // 40% chance to use "The Great Gatsby" instead of normal attack
+
+        // Passive Skill: Cursed Hop (30% chance)
         if (random.NextDouble() < 0.3)
         {
-            UseTheGreatGatsby(playerCharacter);
+            int healAmount = Mathf.RoundToInt(maxHealth * 0.15f); // Heal 15% dari max HP
+            currentHealth += healAmount;
+
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+
+            Debug.Log($"{Name} menggunakan 'Cursed Hop' dan memulihkan {healAmount} HP! Sisa HP: {currentHealth}");
+        }
+
+        // Special Skill: Beyond the Grave (20% chance)
+        if (random.NextDouble() < 0.2)
+        {
+            UseBeyondTheGrave(playerCharacter);
         }
         else
         {
+            // basic attack
             NormalRetaliation(playerCharacter);
         }
 
         return false;
     }
 
-    private void UseTheGreatGatsby(Player playerCharacter)
+    public void UseBeyondTheGrave(Player playerCharacter)
     {
-        // int stolenAmount = random.Next(30, 101); // Steals a larger sum
-        // if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
-        // {
-        //     if (TuyulAnim != null)
-        //     {
-        //         TuyulAnim.SetTrigger("Ulti");
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError("Animator pada Tuyul tidak diatur!");
-        //     }
-        //     Debug.Log($"{Name} menggunakan jurus spesial 'The Great Gatsby' dan mencuri uangmu sebesar {stolenAmount}!");
-        // }
-
         TuyulAnim.SetTrigger("Ulti");
-        int Ultimate = AttackPower + AttackPower/2;
+        int Ultimate = AttackPower * 2;
         playerCharacter.TakeDamage(Ultimate);
-        Debug.Log($"{Name} memberikan {AttackPower*2} damage tambahan dengan jurus 'The Great Gatsby'! Sisa HP: {playerCharacter.currentHealth}");
+        Debug.Log($"{Name} menggunakan jurus spesial 'Beyond the Grave'! {playerCharacter.Name} menerima {Ultimate} damage! Sisa HP: {playerCharacter.currentHealth}");
     }
 
     private void NormalRetaliation(Player playerCharacter)
@@ -75,5 +74,4 @@ public class Aventurine : Tuyul
         TuyulAnim.SetTrigger("Throws");
         Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
     }
-
 }

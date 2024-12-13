@@ -4,13 +4,13 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class ChaengYul : Tuyul
+public class Aventurine : Tuyul
 {
-    public ChaengYul()
+    public Aventurine()
     {
         Name = "Aventurine; The Sparkling Trickster";
         maxHealth = 50;
-        AttackPower = 15;
+        AttackPower = 10;
         Money = 30;
     }
 
@@ -34,20 +34,22 @@ public class ChaengYul : Tuyul
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
             }
         }
+
         // 40% chance to use "The Great Gatsby" instead of normal attack
         if (random.NextDouble() < 0.3)
         {
-            UseBeyondTheGrave(playerCharacter);
+            UseTheGreatGatsby(playerCharacter);
         }
         else
         {
-            // NormalRetaliation(playerCharacter);
+            // basic attack
+            NormalRetaliation(playerCharacter);
         }
 
         return false;
     }
 
-    private void UseBeyondTheGrave(Player playerCharacter)
+    public void UseTheGreatGatsby(Player playerCharacter)
     {
         // int stolenAmount = random.Next(30, 101); // Steals a larger sum
         // if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
@@ -66,13 +68,14 @@ public class ChaengYul : Tuyul
         TuyulAnim.SetTrigger("Ulti");
         int Ultimate = AttackPower + AttackPower/2;
         playerCharacter.TakeDamage(Ultimate);
-        Debug.Log($"{Name} memberikan {AttackPower*2} damage tambahan dengan jurus 'The Great Gatsby'! Sisa HP: {playerCharacter.currentHealth}");
+        Debug.Log($"{Name} memberikan {AttackPower*1.5} damage tambahan dengan jurus 'The Great Gatsby'! Sisa HP: {playerCharacter.currentHealth}");
     }
 
     private void NormalRetaliation(Player playerCharacter)
     {
         playerCharacter.TakeDamage(AttackPower);
         TuyulAnim.SetTrigger("Throws");
-        Debug.Log($"{Name} mengeluarkan jurus 'You Can Catch This Hand!' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
+        Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
     }
+
 }

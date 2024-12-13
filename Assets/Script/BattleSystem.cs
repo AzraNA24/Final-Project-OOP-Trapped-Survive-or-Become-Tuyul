@@ -41,6 +41,16 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
+    //void SetupRollyPollyPair()
+    //{
+    //    Rolly rolly = Instantiate(Rolly, rollySpawnPoint).GetComponent<Rolly>();
+    //    Polly polly = Instantiate(Polly, pollySpawnPoint).GetComponent<Polly>();
+
+    //    rolly.partner = polly;
+    //    polly.partner = rolly;
+    //}
+
+
     void PlayerTurn()
     {
         Debug.Log("Pilih tindakan: Serang, Jarak Jauh, atau Potion");

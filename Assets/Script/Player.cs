@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public CurrencyManager CurrencyManager = new CurrencyManager();
     private int bullets = 5;
 
+    public float criticalChance = 0.3f; // Default 30%         eh ini blm ada implementasinya yak di serangan
+    public float healthPotionEffectiveness = 1.0f; // Default 100%
+
     void Start()
     {
         currentHealth = Health;
@@ -27,7 +30,7 @@ public class Player : MonoBehaviour
 
     public void Heal(int amount)
     {
-        currentHealth += amount;
+        currentHealth += Mathf.RoundToInt(amount * healthPotionEffectiveness);
         if (currentHealth > 100)
             currentHealth = 100;
     }
