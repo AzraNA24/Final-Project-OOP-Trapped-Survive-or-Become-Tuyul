@@ -33,8 +33,9 @@ public class Gun : Item
 
         // Hitung damage berdasarkan 15% dari uang pemain
         float damage = player.CurrencyManager.TotalMoney * DamageMultiplier;
+        int roundedDamage = Mathf.RoundToInt(damage);
 
-        tuyul.TakeDamage(damage, player);
+        tuyul.TakeDamage(roundedDamage, player);
         Debug.Log($"{player.Name} menyerang musuh dengan {damage} damage!");
     }
 }

@@ -19,18 +19,15 @@ public class HealthPotion : Item
             return;
         }
 
-        public override void Use(GameObject character)
+        var player = character.GetComponent<Player>();
+        if (player != null)
         {
-            var player = character.GetComponent<Player>();
-            if (player != null)
-            {
-                player.Heal(HealthRestore);
-                Debug.Log($"{player.Name} menggunakan {Name} dan memulihkan {HealthRestore} HP. Sisa HP: {player.currentHealth}");
-            }
-            else
-            {
-                Debug.LogWarning("Player tidak ditemukan!");
-            }
+            player.Heal(HealthRestore);
+            Debug.Log($"{player.Name} menggunakan {Name} dan memulihkan {HealthRestore} HP. Sisa HP: {player.currentHealth}");
+        }
+        else
+        {
+            Debug.LogWarning("Player tidak ditemukan!");
         }
 
         usageCount++;

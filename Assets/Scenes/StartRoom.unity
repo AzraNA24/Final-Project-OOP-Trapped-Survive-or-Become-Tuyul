@@ -515,6 +515,8 @@ MonoBehaviour:
   Name: Pemburu Harta Karun
   Health: 100
   currentHealth: 0
+  criticalChance: 0.3
+  healthPotionEffectiveness: 1
 --- !u!1 &1484838732
 GameObject:
   m_ObjectHideFlags: 0
