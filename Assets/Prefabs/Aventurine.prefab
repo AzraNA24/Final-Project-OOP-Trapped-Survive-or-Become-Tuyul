@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8154674792705959336}
   - component: {fileID: 8095965837813740233}
   - component: {fileID: 5472107890358915921}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Aventurine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
