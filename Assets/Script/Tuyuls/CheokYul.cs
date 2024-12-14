@@ -4,8 +4,7 @@ using UnityEngine;
 public class CheokYul : Tuyul
 {
     private bool isFlying = false; // Status untuk passive skill
-    private int poisonDuration;
-    private bool isPoisonActive = false;
+    private int poisonDuration = 3; // Durasi poison effect (3 giliran)
 
     public CheokYul()
     {
@@ -13,6 +12,7 @@ public class CheokYul : Tuyul
         maxHealth = 200;
         AttackPower = 15;
         Money = 100;
+        Type = TuyulType.CheokYul;
     }
 
     public override bool TakeDamage(int damage, Player playerCharacter)
@@ -41,11 +41,9 @@ public class CheokYul : Tuyul
         {
             isFlying = true;
             // tambahin kode buat animasi dia terbang
-            // terus ini efeknya apa ya kalo dia terbang? ga bisa diserang jarak deket?
 
             Debug.Log($"{Name} masuk ke mode 'The Flying Horror'!");
         }
-     
         if (Random.value < 0.2f) // Special Skill: The Democracy
         {
             UseTheDemocracy(playerCharacter);
@@ -57,7 +55,7 @@ public class CheokYul : Tuyul
         else
         {
             // basic attack
-            NormalRetaliation(playerCharacter);
+            NormalAttack(playerCharacter);
         }
 
         return false;
@@ -65,7 +63,7 @@ public class CheokYul : Tuyul
 
     private void UseTheDemocracy(Player playerCharacter)
     {
-        int roachesCount = Random.Range(2, 4); // Memanggil 2-3 kecoak kecil
+        int roachesCount = Random.Range(2, 9); // Memanggil 2-8 kecoak kecil
         Debug.Log($"{Name} memanggil {roachesCount} kecoak kecil untuk menyerang!");
 
         for (int i = 0; i < roachesCount; i++)
@@ -78,30 +76,22 @@ public class CheokYul : Tuyul
 
     public void UsePoison(Player playerCharacter)
     {
-        poisonDuration = 3; // Atur durasi poison
-        isPoisonActive = true; // Aktifkan poison
         Debug.Log($"{Name} menggunakan jurus 'Monster Lurks Beneath The Shadow of The Dawn'! Pemain terkena efek poison selama {poisonDuration} giliran.");
+        playerCharacter.StartCoroutine(ApplyPoison(playerCharacter));
     }
 
-    public void ApplyPoison(Player playerCharacter)
+    private IEnumerator ApplyPoison(Player playerCharacter)
     {
-        if (isPoisonActive && poisonDuration > 0)
+        for (int i = 0; i < poisonDuration; i++)
         {
-            int poisonDamage = 10; // Damage per giliran
+            yield return new WaitForSeconds(1f); // jeda per giliran
+            int poisonDamage = 10; // damage per giliran
             playerCharacter.TakeDamage(poisonDamage);
-            poisonDuration--; 
-
-            Debug.Log($"Poison effect: Pemain menerima {poisonDamage} damage. Sisa HP: {playerCharacter.currentHealth}. Sisa giliran poison: {poisonDuration}");
-
-            if (poisonDuration == 0)
-            {
-                isPoisonActive = false; 
-                Debug.Log("Poison effect selesai!");
-            }
+            Debug.Log($"Poison effect: Pemain menerima {poisonDamage} damage. Sisa HP: {playerCharacter.currentHealth}");
         }
     }
 
-    private void NormalRetaliation(Player playerCharacter)
+    public override void NormalAttack(Player playerCharacter)
     {
         playerCharacter.TakeDamage(AttackPower);
         TuyulAnim.SetTrigger("Throws");

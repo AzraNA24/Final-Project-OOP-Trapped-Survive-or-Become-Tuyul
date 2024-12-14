@@ -12,7 +12,6 @@ public class BattleSystem : MonoBehaviour
     public Transform tuyulStation;
     public Button buttonAnimator;
     private Player playerCharacter;
-    
     private Tuyul enemyCharacter; 
     private System.Random random = new System.Random();
     void Start()
@@ -52,7 +51,10 @@ public class BattleSystem : MonoBehaviour
         // Terapkan efek poison hanya untuk CheokYul
         if (enemyCharacter is CheokYul cheokyul && enemyCharacter != null) // Cek apakah Tuyul adalah JaekYul
         {
-            cheokyul.ApplyPoison(playerCharacter); // Jalankan efek poison
+            // cheokyul.ApplyPoison(playerCharacter); // Jalankan efek poison
+        }
+        if (enemyCharacter is MrRizzler mrRizzler && mrRizzler.DebuffRoundsLeft == 0 && playerCharacter.criticalChance < 0.3f){
+            mrRizzler.RemoveDebuff(playerCharacter);
         }
 
         Debug.Log("Pilih tindakan: Serang, Jarak Jauh, atau Potion");
@@ -72,8 +74,24 @@ public class BattleSystem : MonoBehaviour
         
         yield return new WaitUntil(() => !buttonAnimator.animator.GetCurrentAnimatorStateInfo(0).IsName("ShortRange"));
         int AttackPower = Mathf.CeilToInt(playerCharacter.CurrencyManager.TotalMoney * 0.09f);
-        Debug.Log($"Kamu menyerang musuh dengan serangan jarak dekat sebesar {AttackPower}!");
-        bool isDead = enemyCharacter.TakeDamage(AttackPower, playerCharacter);
+        bool isCritical = random.NextDouble() < playerCharacter.criticalChance;
+        int finalAttackPower = isCritical ? AttackPower * 2 : AttackPower;
+
+        if (isCritical)
+        {
+            Debug.Log($"Serangan Critical! Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
+        }
+            else
+        {
+            Debug.Log($"Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
+        }
+
+        bool isDead = enemyCharacter.TakeDamage(finalAttackPower, playerCharacter);
+
+        if (enemyCharacter is Aventurine aventurine)
+        {
+            aventurine.FUA(playerCharacter, isCritical);
+        }
 
         yield return new WaitForSeconds(2f);
 
@@ -99,6 +117,8 @@ public class BattleSystem : MonoBehaviour
     IEnumerator LongRangeAttack()
     {
         int AttackPower = Mathf.CeilToInt(playerCharacter.CurrencyManager.TotalMoney * 0.15f);
+        bool isCritical = random.NextDouble() < playerCharacter.criticalChance + 0.1f;
+        int finalAttackPower = isCritical ? AttackPower * 2 : AttackPower;
 
         if (!playerCharacter.HasBullets())
         {
@@ -114,8 +134,21 @@ public class BattleSystem : MonoBehaviour
         } 
         else
         {
-            Debug.Log($"Kamu menyerang musuh dengan serangan jarak jauh sebesar {AttackPower}!");
-            bool isDead = enemyCharacter.TakeDamage(AttackPower, playerCharacter);
+        
+        if (isCritical)
+        {
+            Debug.Log($"Serangan Critical! Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
+        }
+            else
+        {
+            Debug.Log($"Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
+        }
+            bool isDead = enemyCharacter.TakeDamage(finalAttackPower, playerCharacter);
+
+            if (enemyCharacter is Aventurine aventurine)
+        {
+            aventurine.FUA(playerCharacter, isCritical);
+        }
 
             yield return new WaitForSeconds(2f);
 
@@ -133,14 +166,16 @@ public class BattleSystem : MonoBehaviour
     }
 
     IEnumerator EnemyTurn()
-    {
-        Debug.Log($"{enemyCharacter.Name} menyerang!");
+{
+    Debug.Log($"{enemyCharacter.Name} sedang menyerang!");
+
+        yield return new WaitForSeconds(1f);
+
+        enemyCharacter.EnemyAction(playerCharacter);
 
         yield return new WaitForSeconds(2f);
 
-        bool isDead = playerCharacter.TakeDamage(enemyCharacter.AttackPower);
-
-        if (isDead)
+        if (playerCharacter.currentHealth <= 0)
         {
             state = BattleState.LOST;
             EndBattle();
@@ -150,7 +185,8 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.PLAYER_TURN;
             PlayerTurn();
         }
-    }
+}
+
 
     void EndBattle()
     {
@@ -175,11 +211,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator UsePotion()
     {
         Debug.Log("Kamu menggunakan potion dan memulihkan kesehatan!");
-        playerCharacter.Heal(20);
-
-        yield return new WaitForSeconds(1f);
-        Debug.Log($"{enemyCharacter.Name} memanfaatkan momen lengahmu!");
- 
+        playerCharacter.Heal(20 * (int)playerCharacter.healthPotionEffectiveness);
         yield return new WaitForSeconds(1f);
 
         state = BattleState.TUYUL_TURN;

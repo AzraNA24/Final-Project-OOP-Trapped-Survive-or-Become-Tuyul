@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChaengYul : Tuyul
@@ -9,6 +10,7 @@ public class ChaengYul : Tuyul
         maxHealth = 200;
         AttackPower = 15;
         Money = 100;
+        Type = TuyulType.ChaengYul;
     }
 
     public override bool TakeDamage(int damage, Player playerCharacter)
@@ -22,6 +24,11 @@ public class ChaengYul : Tuyul
             return true;
         }
 
+        return false;
+    }
+
+    public override void EnemyAction(Player playerCharacter)
+    {
         if (random.NextDouble() < 0.4)
         {
             int stolenAmount = random.Next(1, 101);
@@ -33,14 +40,13 @@ public class ChaengYul : Tuyul
         }
 
         // Passive Skill: Cursed Hop (30% chance)
-        if (random.NextDouble() < 0.3)
+        if (currentHealth <= 100 && random.NextDouble() < 0.3)
         {
             int healAmount = Mathf.RoundToInt(maxHealth * 0.15f); // Heal 15% dari max HP
             currentHealth += healAmount;
 
             Debug.Log($"{Name} menggunakan 'Cursed Hop' dan memulihkan {healAmount} HP! Sisa HP: {currentHealth}");
         }
-
         // Special Skill: Beyond the Grave (20% chance)
         if (random.NextDouble() < 0.2)
         {
@@ -49,12 +55,9 @@ public class ChaengYul : Tuyul
         else 
         {
             // basic attack
-            NormalRetaliation(playerCharacter);
+            NormalAttack(playerCharacter);
         }
-
-        return false;
     }
-
     public void UseBeyondTheGrave(Player playerCharacter)
     {
         TuyulAnim.SetTrigger("Ulti");
@@ -63,7 +66,7 @@ public class ChaengYul : Tuyul
         Debug.Log($"{Name} menggunakan jurus spesial 'Beyond the Grave'! {playerCharacter.Name} menerima {Ultimate} damage! Sisa HP: {playerCharacter.currentHealth}");
     }
 
-    private void NormalRetaliation(Player playerCharacter)
+    public override void NormalAttack(Player playerCharacter)
     {
         playerCharacter.TakeDamage(AttackPower);
         TuyulAnim.SetTrigger("Throws");

@@ -8,6 +8,7 @@ public class Rolly : RollyPolly
         maxHealth = 25;
         AttackPower = 10;
         Money = 15;
+        Type = TuyulType.RollyPolly;
     }
 
     public override int GetAttackPower()
