@@ -12,7 +12,8 @@ public class BattleSystem : MonoBehaviour
     public Transform tuyulStation;
     public Button buttonAnimator;
     private Player playerCharacter;
-    private Aventurine enemyCharacter;
+    
+    private Tuyul enemyCharacter; 
     private System.Random random = new System.Random();
     void Start()
     {
@@ -20,21 +21,16 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(SetupBattle());
     }
 
-    IEnumerator SetupBattle()
+        IEnumerator SetupBattle()
     {
         GameObject playerGO = Instantiate(Player, playerStation);
         playerCharacter = playerGO.GetComponent<Player>();
         buttonAnimator.animator = playerGO.GetComponent<Animator>();
 
         GameObject enemyGO = Instantiate(Tuyul, tuyulStation);
-        enemyCharacter = enemyGO.GetComponent<Aventurine>();
-        if (enemyCharacter == null)
-{
-    Debug.LogError("Prefab musuh tidak memiliki komponen Aventurine!");
-}
+        enemyCharacter = enemyGO.GetComponent<Tuyul>();                    
 
-        Debug.Log($"Pertarungan dimulai! {enemyCharacter.Name} muncul!");
-
+        Debug.Log($"Pertarungan dimulai! {enemyCharacter.Name} muncul!");                
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYER_TURN;
@@ -53,6 +49,12 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
+        // Terapkan efek poison hanya untuk CheokYul
+        if (enemyCharacter is CheokYul cheokyul && enemyCharacter != null) // Cek apakah Tuyul adalah JaekYul
+        {
+            cheokyul.ApplyPoison(playerCharacter); // Jalankan efek poison
+        }
+
         Debug.Log("Pilih tindakan: Serang, Jarak Jauh, atau Potion");
     }
 
@@ -109,7 +111,8 @@ public class BattleSystem : MonoBehaviour
                 Debug.Log($"You Missed!");
                 state = BattleState.TUYUL_TURN;
                 StartCoroutine(EnemyTurn());
-        } else
+        } 
+        else
         {
             Debug.Log($"Kamu menyerang musuh dengan serangan jarak jauh sebesar {AttackPower}!");
             bool isDead = enemyCharacter.TakeDamage(AttackPower, playerCharacter);
@@ -174,11 +177,10 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("Kamu menggunakan potion dan memulihkan kesehatan!");
         playerCharacter.Heal(20);
 
-        yield return new WaitForSeconds(2f);
-
+        yield return new WaitForSeconds(1f);
         Debug.Log($"{enemyCharacter.Name} memanfaatkan momen lengahmu!");
-
-        yield return new WaitForSeconds(2f);
+ 
+        yield return new WaitForSeconds(1f);
 
         state = BattleState.TUYUL_TURN;
         StartCoroutine(EnemyTurn());
