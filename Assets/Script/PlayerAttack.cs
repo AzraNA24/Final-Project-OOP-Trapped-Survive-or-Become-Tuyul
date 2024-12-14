@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -29,8 +30,20 @@ public class PlayerAttack : MonoBehaviour
         {
             string objectName = Thing.gameObject.name;
             string objectLayer = LayerMask.LayerToName(Thing.gameObject.layer);
+            
+            Debug.Log($"Detected: {Thing.gameObject.name}");
 
-            Debug.Log($"Hit: {objectName}, Layer: {objectLayer}");
+            if (Thing.isTrigger)
+            {
+                Debug.Log($"Trigger detected: {Thing.gameObject.name}");
+            }
+
+            if (objectName == "Aventurine")
+            {
+                Debug.Log("Aventurine detected! Switching to TurnBased scene...");
+                SceneManager.LoadScene("TurnBased");
+                return;
+            }
             
             LootBox lootBox = Thing.GetComponent<LootBox>();
             if (lootBox != null)
@@ -39,6 +52,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawSphere(AttackPoint.position, AttackRange);
