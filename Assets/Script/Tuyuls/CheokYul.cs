@@ -4,7 +4,8 @@ using UnityEngine;
 public class CheokYul : Tuyul
 {
     private bool isFlying = false; // Status untuk passive skill
-    private int poisonDuration = 3; // Durasi poison effect (3 giliran)
+    private int poisonDuration;
+    private bool isPoisonActive = false;
 
     public CheokYul()
     {
@@ -77,18 +78,26 @@ public class CheokYul : Tuyul
 
     public void UsePoison(Player playerCharacter)
     {
+        poisonDuration = 3; // Atur durasi poison
+        isPoisonActive = true; // Aktifkan poison
         Debug.Log($"{Name} menggunakan jurus 'Monster Lurks Beneath The Shadow of The Dawn'! Pemain terkena efek poison selama {poisonDuration} giliran.");
-        playerCharacter.StartCoroutine(ApplyPoison(playerCharacter));
     }
 
-    private IEnumerator ApplyPoison(Player playerCharacter)
+    public void ApplyPoison(Player playerCharacter)
     {
-        for (int i = 0; i < poisonDuration; i++)
+        if (isPoisonActive && poisonDuration > 0)
         {
-            yield return new WaitForSeconds(1f); // jeda per giliran
-            int poisonDamage = 10; // damage per giliran
+            int poisonDamage = 10; // Damage per giliran
             playerCharacter.TakeDamage(poisonDamage);
-            Debug.Log($"Poison effect: Pemain menerima {poisonDamage} damage. Sisa HP: {playerCharacter.currentHealth}");
+            poisonDuration--; 
+
+            Debug.Log($"Poison effect: Pemain menerima {poisonDamage} damage. Sisa HP: {playerCharacter.currentHealth}. Sisa giliran poison: {poisonDuration}");
+
+            if (poisonDuration == 0)
+            {
+                isPoisonActive = false; 
+                Debug.Log("Poison effect selesai!");
+            }
         }
     }
 

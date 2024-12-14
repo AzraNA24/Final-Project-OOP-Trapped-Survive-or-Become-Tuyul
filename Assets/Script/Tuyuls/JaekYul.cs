@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class JaekYul : Tuyul
 {
-    private Tuyul currentForm; // Form saat ini (bisa berubah jadi Tuyul lain)
-    private System.Type originalForm; // Bentuk asli JaekYul
+    private GameObject currentFormObject;
 
     public JaekYul()
     {
@@ -11,10 +10,11 @@ public class JaekYul : Tuyul
         maxHealth = 350;
         AttackPower = 20;
         Money = 200;
+    }
 
-        // Default ke bentuk asli
-        originalForm = typeof(JaekYul);
-        currentForm = this;
+    private void Awake()
+    {
+        currentFormObject = this.gameObject; // Default ke bentuk asli
     }
 
     public override bool TakeDamage(int damage, Player playerCharacter)
@@ -50,42 +50,41 @@ public class JaekYul : Tuyul
             NormalRetaliation(playerCharacter);
         }
 
+        if (currentFormObject != null && currentFormObject != this.gameObject)
+        {
+            currentFormObject = this.gameObject; // Set ke bentuk asli
+            Debug.Log($"{Name} kembali ke bentuk aslinya setelah menyerang!");
+        }
+
         return false;
     }
 
     private void TransformToRandomTuyul()
     {
-        System.Type[] tuyulTypes = { typeof(Aventurine), typeof(CheokYul), typeof(ChaengYul), typeof(MrRizzler), typeof(Rolly), typeof(Polly) };  // rolly polly gimana?... ga ngerti dah gw konsep rolly polly ini
+        System.Type[] tuyulTypes = { typeof(Aventurine), typeof(CheokYul), typeof(ChaengYul), typeof(MrRizzler) };
         System.Type randomTuyulType = tuyulTypes[Random.Range(0, tuyulTypes.Length)];
 
-        // Transform menjadi Tuyul yang dipilih
-        if (randomTuyulType != null)
+        // Hapus GameObject bentuk lama jika bukan JaekYul asli
+        if (currentFormObject != null && currentFormObject != this.gameObject)
         {
-            if (randomTuyulType == typeof(Rolly) || randomTuyulType == typeof(Polly))
-            {
-                // Buat instance Rolly dan Polly sebagai partner
-                Rolly rolly = new Rolly();
-                Polly polly = new Polly();
-                rolly.partner = polly;
-                polly.partner = rolly;
-
-                currentForm = (randomTuyulType == typeof(Rolly)) ? rolly : polly;
-                
-            }
-            else
-            {
-                currentForm = (Tuyul)System.Activator.CreateInstance(randomTuyulType);
-            }
-
-            Debug.Log($"{Name} berubah menjadi {currentForm.Name}!");
+            Destroy(currentFormObject); 
         }
-    }
 
-    private void RevertToOriginalForm()
-    {
-        // Kembali ke bentuk asli
-        currentForm = (Tuyul)System.Activator.CreateInstance(originalForm);
-        Debug.Log($"{Name} kembali ke bentuk aslinya!");
+        // Buat GameObject baru untuk bentuk baru
+        currentFormObject = new GameObject(randomTuyulType.Name); // Buat GameObject baru
+        var newTuyul = currentFormObject.AddComponent(randomTuyulType) as Tuyul;
+
+        // Menambahkan komponen Animator
+        var animator = currentFormObject.GetComponent<Animator>();
+        if (animator == null)
+        {
+            animator = currentFormObject.AddComponent<Animator>(); // Tambahkan Animator baru jika belum ada
+            Debug.LogWarning($"Animator tidak ditemukan pada {currentFormObject.name}, Animator baru ditambahkan.");
+        }
+
+        newTuyul.TuyulAnim = animator; // Hubungkan Animator ke Tuyul baru
+
+        Debug.Log($"{Name} berubah menjadi {randomTuyulType.Name}!");
     }
 
     private void NormalRetaliation(Player playerCharacter)
@@ -97,22 +96,26 @@ public class JaekYul : Tuyul
 
     private void UseCurrentFormSpecialSkill(Player playerCharacter)
     {
-        if (currentForm is Aventurine aventurine) {
+        Tuyul currentForm = currentFormObject.GetComponent<Tuyul>(); // Ambil komponen Tuyul dari bentuk aktif
+
+        if (currentForm is Aventurine aventurine)
+        {
             aventurine.UseTheGreatGatsby(playerCharacter);
         }
-        else if (currentForm is MrRizzler rizzler) {
+        else if (currentForm is MrRizzler rizzler)
+        {
             rizzler.UseSeduceYouToDeath(playerCharacter);
         }
-        else if (currentForm is CheokYul cheokYul) {
+        else if (currentForm is CheokYul cheokYul)
+        {
             cheokYul.UsePoison(playerCharacter);
         }
-        else if (currentForm is ChaengYul chaengYul) {
+        else if (currentForm is ChaengYul chaengYul)
+        {
             chaengYul.UseBeyondTheGrave(playerCharacter);
         }
-        else if (currentForm is RollyPolly rollyPolly) {
-            rollyPolly.UseTeamworkSkill(playerCharacter);
-        }
-        else {
+        else
+        {
             Debug.Log($"{Name} dalam bentuk {currentForm.Name} tidak memiliki special skill untuk digunakan!");
         }
     }

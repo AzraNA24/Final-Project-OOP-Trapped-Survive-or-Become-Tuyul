@@ -54,6 +54,5 @@ public class Button: MonoBehaviour
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         animator.SetBool(animationName,false);
-
     }
 }

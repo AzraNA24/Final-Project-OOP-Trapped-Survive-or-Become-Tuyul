@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a187caee183335418c647be6530cb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TuyulAnim: {fileID: 0}
+  TuyulAnim: {fileID: 2447246541903600832}
   Name: ChaengYul; Bestie of Pocong
   maxHealth: 200
   currentHealth: 0

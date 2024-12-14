@@ -13,7 +13,7 @@ public class BattleSystem : MonoBehaviour
     public Button buttonAnimator;
     private Player playerCharacter;
     private Aventurine enemyCharacter;
-
+    private System.Random random = new System.Random();
     void Start()
     {
         state = BattleState.START;
@@ -73,7 +73,7 @@ public class BattleSystem : MonoBehaviour
         Debug.Log($"Kamu menyerang musuh dengan serangan jarak dekat sebesar {AttackPower}!");
         bool isDead = enemyCharacter.TakeDamage(AttackPower, playerCharacter);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
@@ -104,20 +104,28 @@ public class BattleSystem : MonoBehaviour
             yield break;
         }
 
-        Debug.Log($"Kamu menyerang musuh dengan serangan jarak jauh sebesar {AttackPower}!");
-        bool isDead = enemyCharacter.TakeDamage(AttackPower, playerCharacter);
-
-        yield return new WaitForSeconds(1f);
-
-        if (isDead)
+        if (random.NextDouble() < 0.3)
         {
-            state = BattleState.WON;
-            EndBattle();
-        }
-        else
+                Debug.Log($"You Missed!");
+                state = BattleState.TUYUL_TURN;
+                StartCoroutine(EnemyTurn());
+        } else
         {
-            state = BattleState.TUYUL_TURN;
-            StartCoroutine(EnemyTurn());
+            Debug.Log($"Kamu menyerang musuh dengan serangan jarak jauh sebesar {AttackPower}!");
+            bool isDead = enemyCharacter.TakeDamage(AttackPower, playerCharacter);
+
+            yield return new WaitForSeconds(2f);
+
+            if (isDead)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.TUYUL_TURN;
+                StartCoroutine(EnemyTurn());
+            }
         }
     }
 
@@ -125,7 +133,7 @@ public class BattleSystem : MonoBehaviour
     {
         Debug.Log($"{enemyCharacter.Name} menyerang!");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         bool isDead = playerCharacter.TakeDamage(enemyCharacter.AttackPower);
 
@@ -166,11 +174,11 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("Kamu menggunakan potion dan memulihkan kesehatan!");
         playerCharacter.Heal(20);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         Debug.Log($"{enemyCharacter.Name} memanfaatkan momen lengahmu!");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         state = BattleState.TUYUL_TURN;
         StartCoroutine(EnemyTurn());

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1683e091c30c0924d9719b601e7742e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TuyulAnim: {fileID: 0}
+  TuyulAnim: {fileID: -6011250256220811822}
   Name: Jaek Yul; Tuyul of All Trade, Master of All
   maxHealth: 350
   currentHealth: 0

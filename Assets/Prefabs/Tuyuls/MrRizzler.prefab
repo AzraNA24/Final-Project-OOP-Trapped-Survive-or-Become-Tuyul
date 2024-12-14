@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30e05673501e364fb1888240e204f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TuyulAnim: {fileID: 0}
+  TuyulAnim: {fileID: -6327863598716802768}
   Name: Mr. Rizzler; The Charmer of Chaos
   maxHealth: 50
   currentHealth: 0

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee6d5cd5d4a25643a36aa3f73953670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TuyulAnim: {fileID: 0}
+  TuyulAnim: {fileID: -3105664473713030559}
   Name: CheokYul; Impish Who Studies under The Ancient Beast [Kecoak Terbang]
   maxHealth: 200
   currentHealth: 0

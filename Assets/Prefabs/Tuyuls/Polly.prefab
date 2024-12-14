@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6beb92e594f4c64491e868548056342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TuyulAnim: {fileID: 0}
+  TuyulAnim: {fileID: 8158632198646799974}
   Name: Polly; The Stalwart Defender
   maxHealth: 25
   currentHealth: 0

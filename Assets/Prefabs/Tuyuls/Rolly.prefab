@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14791ea043da9104bb4a4d9fd2e2f73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TuyulAnim: {fileID: 0}
+  TuyulAnim: {fileID: -3078768879222045738}
   Name: Rolly; The Reckless Attacker
   maxHealth: 25
   currentHealth: 0

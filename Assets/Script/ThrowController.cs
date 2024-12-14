@@ -37,6 +37,7 @@ public class ThrowController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) // Tombol untuk menendang
         {
             Stone.enabled = true;
+            Debug.Log("Batu muncul");
             CheongYul.SetTrigger("OnThrow");
             StoneThrow.SetTrigger("Bounce");
         }

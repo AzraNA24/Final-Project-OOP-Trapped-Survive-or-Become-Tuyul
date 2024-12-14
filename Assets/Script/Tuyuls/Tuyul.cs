@@ -6,16 +6,25 @@ public class Tuyul : MonoBehaviour
 {
     public Animator TuyulAnim;
     public string Name = "Tuyul; Scurry Impish Little Trickster";
-    public int maxHealth = 50;
+    public int maxHealth;
     public int currentHealth;
-    public int AttackPower = 15;
-    public int Money = 30;
+    public int AttackPower;
+    public int Money;
     public System.Random random = new System.Random();
 
     void Start()
     {
         currentHealth = maxHealth;
         TuyulAnim.SetBool("TurnBased", true);
+
+        if (TuyulAnim == null)
+        {
+            TuyulAnim = GetComponent<Animator>(); // Ambil komponen Animator
+            if (TuyulAnim == null)
+            {
+                Debug.LogError($"{name} tidak memiliki komponen Animator!");
+            }
+        }
     }
 
     // Method to handle taking damage with additional Tuyul abilities

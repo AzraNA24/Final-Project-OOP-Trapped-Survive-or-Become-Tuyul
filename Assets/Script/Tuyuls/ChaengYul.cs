@@ -38,11 +38,6 @@ public class ChaengYul : Tuyul
             int healAmount = Mathf.RoundToInt(maxHealth * 0.15f); // Heal 15% dari max HP
             currentHealth += healAmount;
 
-            if (currentHealth > maxHealth)
-            {
-                currentHealth = maxHealth;
-            }
-
             Debug.Log($"{Name} menggunakan 'Cursed Hop' dan memulihkan {healAmount} HP! Sisa HP: {currentHealth}");
         }
 
@@ -51,7 +46,7 @@ public class ChaengYul : Tuyul
         {
             UseBeyondTheGrave(playerCharacter);
         }
-        else
+        else 
         {
             // basic attack
             NormalRetaliation(playerCharacter);
