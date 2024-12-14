@@ -11,6 +11,7 @@ public class Tuyul : MonoBehaviour
     public int AttackPower;
     public int Money;
     public System.Random random = new System.Random();
+    public TuyulType Type { get; set; }
 
     void Start()
     {
@@ -30,15 +31,6 @@ public class Tuyul : MonoBehaviour
     // Method to handle taking damage with additional Tuyul abilities
     public virtual bool TakeDamage(int damage, Player playerCharacter)
     {
-        // Retaliation damage if the attack is 0
-        if (damage == 0)
-        {
-            int retaliationDamage = 7;
-            playerCharacter.TakeDamage(retaliationDamage);
-            Debug.Log($"{playerCharacter.Name} menerima {retaliationDamage} damage dari serangan balik! Sisa HP: {playerCharacter.currentHealth}");
-            return false;
-        }
-
         currentHealth -= damage;
         Debug.Log($"{Name} menerima {damage} damage! Sisa HP: {currentHealth}");
 
@@ -46,20 +38,6 @@ public class Tuyul : MonoBehaviour
         {
             currentHealth = 0;
             return true; // Tuyul is dead
-        }
-
-        playerCharacter.TakeDamage(AttackPower);
-        Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu'. {playerCharacter.Name} menerima {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
-
-        // 40% chance to steal money
-        if (random.NextDouble() < 0.4)
-        {
-            int stolenAmount = random.Next(1, 101);
-            if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
-            {
-                TuyulAnim.SetTrigger("TPBP");
-                Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
-            }
         }
 
         // Offer to surrender if health is low
@@ -78,7 +56,27 @@ public class Tuyul : MonoBehaviour
                 return true;
             }
         }
-
         return false;
     }
+
+    public enum TuyulType
+    {
+    Aventurine,
+    MrRizzler,
+    RollyPolly,
+    ChaengYul,
+    CheokYul,
+    JaekYul
+    }
+    public virtual void EnemyAction(Player playerCharacter)
+    {
+        NormalAttack(playerCharacter);
+    }
+    public virtual void NormalAttack(Player playerCharacter)
+{
+    playerCharacter.TakeDamage(AttackPower);
+    TuyulAnim.SetTrigger("Throws");
+    Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
+}
+
 }

@@ -457,7 +457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &494343080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,8 +977,6 @@ MonoBehaviour:
   playerStation: {fileID: 3757373081994050707, guid: d27042808ec466e41b78e6f9427a7701, type: 3}
   tuyulStation: {fileID: 6802072662043813439, guid: 834adbe544109a949ac87024c07e062a, type: 3}
   buttonAnimator: {fileID: 221127664}
-  playerCharacter: {fileID: 0}
-  enemyCharacter: {fileID: 0}
 --- !u!4 &1355302181
 Transform:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class Polly : RollyPolly
         maxHealth = 25;
         AttackPower = 5;
         Money = 15;
+        Type = TuyulType.RollyPolly;
     }
 
     public override bool TakeDamage(int damage, Player playerCharacter)

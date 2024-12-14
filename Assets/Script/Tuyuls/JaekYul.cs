@@ -10,6 +10,7 @@ public class JaekYul : Tuyul
         maxHealth = 350;
         AttackPower = 20;
         Money = 200;
+        Type = TuyulType.JaekYul;
     }
 
     private void Awake()
@@ -47,7 +48,7 @@ public class JaekYul : Tuyul
         else
         {
             // basic attack
-            NormalRetaliation(playerCharacter);
+            NormalAttack(playerCharacter);
         }
 
         if (currentFormObject != null && currentFormObject != this.gameObject)
@@ -87,7 +88,7 @@ public class JaekYul : Tuyul
         Debug.Log($"{Name} berubah menjadi {randomTuyulType.Name}!");
     }
 
-    private void NormalRetaliation(Player playerCharacter)
+    public override void NormalAttack(Player playerCharacter)
     {
         playerCharacter.TakeDamage(AttackPower);
         TuyulAnim.SetTrigger("Throws");

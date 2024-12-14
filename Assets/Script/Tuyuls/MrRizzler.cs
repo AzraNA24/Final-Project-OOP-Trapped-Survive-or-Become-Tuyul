@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class MrRizzler : Tuyul
 {
+    public int DebuffRoundsLeft = 0;
     public MrRizzler()
     {
         Name = "Mr. Rizzler; The Charmer of Chaos";
         maxHealth = 50;
         AttackPower = 10;
         Money = 30;
+        Type = TuyulType.MrRizzler;
     }
 
     public override bool TakeDamage(int damage, Player playerCharacter)
@@ -19,7 +21,18 @@ public class MrRizzler : Tuyul
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            RemoveDebuff(playerCharacter);
             return true; 
+        }
+        return false;
+    }
+
+    public override void EnemyAction(Player playerCharacter)
+    {
+        if (DebuffRoundsLeft > 0)
+        {
+            DebuffRoundsLeft--;
+            Debug.Log($"{Name} terus memengaruhi critical chance pemain! Ronde tersisa: {DebuffRoundsLeft}");
         }
 
         if (random.NextDouble() < 0.4)
@@ -33,25 +46,23 @@ public class MrRizzler : Tuyul
         }
 
         // Special Skill: Seduce You To Death (20% chance)
-        if (random.NextDouble() < 0.2)
+        if (random.NextDouble() < 0.2 && DebuffRoundsLeft == 0)
         {
             UseSeduceYouToDeath(playerCharacter);
         }
         else
         {
             // basic attack
-            NormalRetaliation(playerCharacter);
+            NormalAttack(playerCharacter);
         }
-
-        return false;
     }
-
     public void UseSeduceYouToDeath(Player playerCharacter)
     {
         TuyulAnim.SetTrigger("Ulti");
 
-        // Mengurangi critical chance pemain (15%)
-        playerCharacter.criticalChance -= 0.15f;
+        DebuffRoundsLeft = 3;
+        // Mengurangi critical chance pemain (10%)
+        playerCharacter.criticalChance -= 0.1f;
         if (playerCharacter.criticalChance < 0) playerCharacter.criticalChance = 0;
 
         // Mengurangi efektivitas health potion (50%)
@@ -61,7 +72,13 @@ public class MrRizzler : Tuyul
         Debug.Log($"{Name} menggunakan jurus spesial 'Seduce You To Death'! Efek health potion pemain berkurang dan critical chance turun menjadi {playerCharacter.criticalChance * 100}%.");
     }
 
-    private void NormalRetaliation(Player playerCharacter)
+    public void RemoveDebuff (Player playerCharacter){
+        playerCharacter.criticalChance = 0.3f;
+        playerCharacter.healthPotionEffectiveness = 1.0f;
+        Debug.Log("Debuff diangkat!");
+    }
+
+    public override void NormalAttack(Player playerCharacter)
     {
         playerCharacter.TakeDamage(AttackPower);
         TuyulAnim.SetTrigger("Throws");
