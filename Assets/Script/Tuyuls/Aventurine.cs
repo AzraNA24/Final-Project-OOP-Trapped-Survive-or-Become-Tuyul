@@ -63,7 +63,7 @@ public class Aventurine : Tuyul
     public void FUA (Player playerCharacter, bool playerCrit)
     {
         if (canFUA && playerCrit){
-            TuyulAnim.SetTrigger("Ulti");
+            TuyulAnim.SetTrigger("FUA");
             int FUA = AttackPower/2;
             playerCharacter.TakeDamage(FUA);
             Debug.Log($"{Name} melakukan Follow-Up Attack dan memberikan {FUA} damage tambahan! Sisa HP: {playerCharacter.currentHealth}");
