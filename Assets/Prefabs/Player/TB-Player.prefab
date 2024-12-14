@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: MoneyHunter
-  Health: 100
-  currentHealth: 100
-  AttackPower: 10
+  Health: 200
+  currentHealth: 200
+  criticalChance: 0.3
+  healthPotionEffectiveness: 1
 --- !u!212 &4814827468454839234
 SpriteRenderer:
   m_ObjectHideFlags: 0
