@@ -29,6 +29,10 @@ public class MrRizzler : Tuyul
 
     public override void EnemyAction(Player playerCharacter)
     {
+        StartCoroutine(ExecuteEnemyAction(playerCharacter));
+    }
+    public IEnumerator ExecuteEnemyAction(Player playerCharacter)
+    {
         if (DebuffRoundsLeft > 0)
         {
             DebuffRoundsLeft--;
@@ -42,13 +46,14 @@ public class MrRizzler : Tuyul
             {
                 TuyulAnim.SetTrigger("TPBP");
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
+                yield return new WaitForSeconds(1f);
             }
         }
 
         // Special Skill: Seduce You To Death (20% chance)
         if (random.NextDouble() < 0.2 && DebuffRoundsLeft == 0)
         {
-            UseSeduceYouToDeath(playerCharacter);
+            yield return StartCoroutine(UseSeduceYouToDeath(playerCharacter));
         }
         else
         {
@@ -56,9 +61,10 @@ public class MrRizzler : Tuyul
             NormalAttack(playerCharacter);
         }
     }
-    public void UseSeduceYouToDeath(Player playerCharacter)
+    public IEnumerator UseSeduceYouToDeath(Player playerCharacter)
     {
-        TuyulAnim.SetTrigger("Ulti");
+        TuyulAnim.SetTrigger("Seduce");
+        yield return new WaitForSeconds(1f);
 
         DebuffRoundsLeft = 3;
         // Mengurangi critical chance pemain (10%)
@@ -80,8 +86,14 @@ public class MrRizzler : Tuyul
 
     public override void NormalAttack(Player playerCharacter)
     {
-        playerCharacter.TakeDamage(AttackPower);
+        StartCoroutine(ExecuteNormalAttack(playerCharacter));
+    }
+
+    private IEnumerator ExecuteNormalAttack(Player playerCharacter)
+    {
         TuyulAnim.SetTrigger("Throws");
+        yield return new WaitForSeconds(1f);
+        playerCharacter.TakeDamage(AttackPower);
         Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
     }
 }
