@@ -39,7 +39,7 @@ public class MrRizzler : Tuyul
             Debug.Log($"{Name} terus memengaruhi critical chance pemain! Ronde tersisa: {DebuffRoundsLeft}");
         }
 
-        if (random.NextDouble() < 0.4)
+        if (random.NextDouble() < 0.3)
         {
             int stolenAmount = random.Next(1, 101);
             if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
@@ -91,7 +91,7 @@ public class MrRizzler : Tuyul
 
     private IEnumerator ExecuteNormalAttack(Player playerCharacter)
     {
-        TuyulAnim.SetTrigger("Throws");
+        TuyulAnim.SetTrigger("Throw");
         yield return new WaitForSeconds(1f);
         playerCharacter.TakeDamage(AttackPower);
         Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");

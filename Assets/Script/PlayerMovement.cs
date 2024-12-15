@@ -7,12 +7,15 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public Animator animator;
+    public AudioSource footstepAudio;
+
     private Vector2 movement;
     private float idleTimer = 0f; // Tracks time the player is stationary
     private float idleThreshold = 5f; // Time in seconds before switching to idle animation
     // private bool isAttacking = false;
     private Vector2 lastMovement;
-
+    private bool isPlayingFootstep = false;
+    
     void Update()
     {
     movement.x = Input.GetAxisRaw("Horizontal");
@@ -32,9 +35,11 @@ public class PlayerMovement : MonoBehaviour
         if (isMoving)
         {
             idleTimer = 0f;
+            PlayFootstepSound();
         }
         else
         {
+            StopFootstepSound();
             idleTimer += Time.deltaTime;
         }
 
@@ -90,5 +95,24 @@ public class PlayerMovement : MonoBehaviour
 //     animator.SetBool("isClick", false);
 //     isAttacking = false;
 // }
+    void PlayFootstepSound()
+    {
+        if (!isPlayingFootstep)
+        {
+            footstepAudio.loop = true; // Agar terus bermain selama berjalan
+            footstepAudio.Play();
+            Debug.Log("Playing Footstep Sound");
+            isPlayingFootstep = true;
+        }
+    }
+    void StopFootstepSound()
+    {
+        if (isPlayingFootstep)
+        {
+            Debug.Log("Stopping Footstep Sound");
+            footstepAudio.Stop();
+            isPlayingFootstep = false;
+        }
+    }
 
 }
