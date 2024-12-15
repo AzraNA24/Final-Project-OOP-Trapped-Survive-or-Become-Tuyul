@@ -7,7 +7,7 @@ public class Aventurine : Tuyul
 
     public Aventurine()
     {
-        Name = "Aventurine; The Sparkling Trickster";
+        Name = "Aventurine";
         maxHealth = 50;
         AttackPower = 10;
         Money = 30;

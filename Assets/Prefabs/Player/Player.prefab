@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7502029825535283684}
   - component: {fileID: 6536134273059864711}
   - component: {fileID: 4750830077818833568}
+  - component: {fileID: 7851962294972304530}
+  - component: {fileID: 8828675383204182743}
   - component: {fileID: 1945082396078559362}
   - component: {fileID: 1030086234346907035}
   - component: {fileID: -4478610846497257245}
@@ -105,6 +107,40 @@ MonoBehaviour:
   rb: {fileID: 1945082396078559362}
   animator: {fileID: 1030086234346907035}
   footstepAudio: {fileID: 47279615730377920}
+--- !u!114 &7851962294972304530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195421759263100731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed7bb5ad9f4f01a438d3113b37945e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  AttackPoint: {fileID: 0}
+  AttackRange: 0.93
+  Layer:
+    serializedVersion: 2
+    m_Bits: 12320
+--- !u!114 &8828675383204182743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195421759263100731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b25507960480546bc1b0814745fde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryUI: {fileID: 2445861958460933980, guid: 5aa72866700f7504caffa24709b9b848, type: 3}
+  codexUI: {fileID: 2295810665483235736, guid: c436328cd3d8ce44585a204e4c489d96, type: 3}
+  inventorySize: 10
+  Open: {fileID: 0}
 --- !u!50 &1945082396078559362
 Rigidbody2D:
   serializedVersion: 4

@@ -18,6 +18,7 @@ public class ItemUI : MonoBehaviour
             InventoryItem Item = Instantiate(itemprefab, Vector3.zero, Quaternion.identity);
             Item.transform.SetParent(contentPanel);
             ListofUIItems.Add(Item);
+            Item.OnItemClicked += HandleItemSelection;
         }
     }
     public void Show()
@@ -27,5 +28,9 @@ public class ItemUI : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+    }
+    private void HandleItemSelection (InventoryItem obj)
+    {
+        Debug.Log($"{obj.name} clicked") ;
     }
 }
