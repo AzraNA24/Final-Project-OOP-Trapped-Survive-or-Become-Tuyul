@@ -194,6 +194,10 @@ public class BattleSystem : MonoBehaviour
         {
             playerCharacter.CurrencyManager.AddMoney(enemyCharacter.Money);
             Debug.Log("Kamu menang!");
+            PlayerPrefs.SetInt($"{enemyCharacter.Name}_Defeated", 1);
+            SceneManagerController.Instance.ReturnToLastScene();
+            FindObjectOfType<PlayerManager>()?.RespawnPlayer();
+            
         }
         else if (state == BattleState.LOST)
         {
@@ -205,13 +209,20 @@ public class BattleSystem : MonoBehaviour
     {
         if (state != BattleState.PLAYER_TURN)
             return;
-        StartCoroutine(UsePotion());
+
+        if (playerCharacter.HasPotion())
+        {
+            StartCoroutine(UsePotion());
+        }
+        else
+        {
+            Debug.Log("Tidak ada potion yang tersedia!");
+        }
     }
 
     IEnumerator UsePotion()
     {
-        Debug.Log("Kamu menggunakan potion dan memulihkan kesehatan!");
-        playerCharacter.Heal(20 * (int)playerCharacter.healthPotionEffectiveness);
+        playerCharacter.UsePotion();
         yield return new WaitForSeconds(1f);
 
         state = BattleState.TUYUL_TURN;

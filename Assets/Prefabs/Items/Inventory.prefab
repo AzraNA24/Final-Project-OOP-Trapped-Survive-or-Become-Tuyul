@@ -547,7 +547,6 @@ GameObject:
   - component: {fileID: 6400361263481809976}
   - component: {fileID: 3571341309275364373}
   - component: {fileID: 8260528306086812154}
-  - component: {fileID: 2176735982354021571}
   - component: {fileID: 1548457435903219644}
   m_Layer: 5
   m_Name: Inventory
@@ -591,6 +590,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemprefab: {fileID: 4048145067992136572, guid: d17d136b886c5d549a34c87879535789, type: 3}
   contentPanel: {fileID: 5051100982054558674}
+  itemDesc: {fileID: 1727923309859406736}
+  currencyManager: {fileID: 3025597483860859403, guid: 0e73ea6757575b14b86fbf571650966b, type: 3}
 --- !u!222 &6400361263481809976
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -655,20 +656,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &2176735982354021571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4976760965971872585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60146727f2fc18b499a586379c51d8c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemprefab: {fileID: 0}
-  contentPanel: {fileID: 0}
 --- !u!82 &1548457435903219644
 AudioSource:
   m_ObjectHideFlags: 0
@@ -778,6 +765,7 @@ GameObject:
   - component: {fileID: 44263898355676493}
   - component: {fileID: 2146564425411111454}
   - component: {fileID: 4208432033498167295}
+  - component: {fileID: 1727923309859406736}
   m_Layer: 5
   m_Name: Desc
   m_TagString: Untagged
@@ -890,6 +878,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1727923309859406736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7195898394208535674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32516e8802b514a449cc5cf9558c28e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: 4915921739465187009}
+  title: {fileID: 4162073166515501143}
+  description: {fileID: 7061404555296617845}
 --- !u!1 &7549586387815154103
 GameObject:
   m_ObjectHideFlags: 0

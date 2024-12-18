@@ -31,6 +31,10 @@ public class CameraFollow : MonoBehaviour
 
         // Terapkan posisi kamera
         transform.position = smoothedPosition;
+        Camera mainCamera = Camera.main;
+
+        float verticalExtent = mainCamera.orthographicSize;
+        float horizontalExtent = verticalExtent * mainCamera.aspect;
 
         // Opsional: Batasi gerakan kamera sesuai batas layar
         float clampedX = Mathf.Clamp(transform.position.x, -screenBounds.x, screenBounds.x);

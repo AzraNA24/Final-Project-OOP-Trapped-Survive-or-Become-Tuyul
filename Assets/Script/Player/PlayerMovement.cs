@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         {
             footstepAudio.loop = true; // Agar terus bermain selama berjalan
             footstepAudio.Play();
-            Debug.Log("Playing Footstep Sound");
+            // Debug.Log("Playing Footstep Sound");
             isPlayingFootstep = true;
         }
     }
@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isPlayingFootstep)
         {
-            Debug.Log("Stopping Footstep Sound");
+            // Debug.Log("Stopping Footstep Sound");
             footstepAudio.Stop();
             isPlayingFootstep = false;
         }

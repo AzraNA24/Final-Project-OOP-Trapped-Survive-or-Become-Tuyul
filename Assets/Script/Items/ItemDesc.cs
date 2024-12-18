@@ -1,18 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ItemDesc : MonoBehaviour
+namespace Inventory.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ItemDesc : MonoBehaviour
     {
-        
-    }
+        [SerializeField]
+        private Image itemImage;
+        [SerializeField]
+        private TMP_Text title;
+        [SerializeField]
+        private TMP_Text description;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        public void Awake()
+        {
+            ResetDescription();
+        }
+
+        public void ResetDescription()
+        {
+            itemImage.gameObject.SetActive(false);
+            title.text = "";
+            description.text = "";
+        }
+
+        public void SetDescription(Sprite sprite, string itemName,
+            string itemDescription)
+        {
+            itemImage.gameObject.SetActive(true);
+            itemImage.sprite = sprite;
+            title.text = itemName;
+            description.text = itemDescription;
+        }
     }
 }

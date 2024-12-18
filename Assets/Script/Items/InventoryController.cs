@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Inventory.UI;
 using UnityEngine;
 
 public class InventoryController : MonoBehaviour
@@ -8,14 +9,14 @@ public class InventoryController : MonoBehaviour
     private ItemUI inventoryUI;
 
     [SerializeField]
-    private CodexUI codexUI; // Referensi ke UI Codex, tambahkan melalui Inspector
+    private CodexUI codexUI;
 
     public int inventorySize = 10;
     public AudioSource Open;
 
     private void Start()
     {
-        inventoryUI.InitializedItemUI(inventorySize);
+        inventoryUI.InitializeInventoryUI(inventorySize);
     }
 
     private void Update()
@@ -30,10 +31,12 @@ public class InventoryController : MonoBehaviour
                 }
                 Open.Play();
                 inventoryUI.Show();
+                Debug.Log("Inventory terbuka");
             }
             else
             {
                 inventoryUI.Hide();
+                Debug.Log("Inventory tertutup");
             }
         }
         if (Input.GetKeyDown(KeyCode.C))

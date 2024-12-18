@@ -9,13 +9,23 @@ public class Door : MonoBehaviour
     private static HashSet<string> visitedScenes = new HashSet<string>(); 
     private static bool isFinalScene = false; 
 
+        private void Awake()
+    {
+        //Biar nggak keulang ruangannya
+        LoadVisitedScenes();
+    }
+    private void OnApplicationQuit()
+    {
+        // Simpan data kunjungan
+        SaveVisitedScenes();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             if (isFinalScene)
             {
-                SceneManager.LoadScene(finalScene);
+                SceneManagerController.Instance.SwitchScene(finalScene, SceneManagerController.GameMode.Exploration);
             }
             else
             {
@@ -23,12 +33,12 @@ public class Door : MonoBehaviour
                 if (nextScene == "")
                 {
                     isFinalScene = true;
-                    SceneManager.LoadScene(finalScene);
+                    SceneManagerController.Instance.SwitchScene(finalScene, SceneManagerController.GameMode.Exploration);
                 }
                 else
                 {
                     visitedScenes.Add(nextScene);
-                    SceneManager.LoadScene(nextScene);
+                    SceneManagerController.Instance.SwitchScene(nextScene, SceneManagerController.GameMode.Exploration);
                 }
             }
         }
@@ -39,7 +49,7 @@ public class Door : MonoBehaviour
         List<string> unvisitedScenes = new List<string>();
         foreach (string scene in middleScenes)
         {
-            if (!visitedScenes.Contains(scene))
+            if (!visitedScenes.Contains(scene) && !IsRoomCleared(scene))
             {
                 unvisitedScenes.Add(scene);
             }
@@ -51,6 +61,25 @@ public class Door : MonoBehaviour
             return unvisitedScenes[randomIndex];
         }
 
-        return "";
+        return ""; // Semua ruangan telah dikunjungi atau selesai
+    }
+
+    private bool IsRoomCleared(string sceneName)
+    {
+        return PlayerPrefs.GetInt($"{sceneName}_Cleared", 0) == 1;
+    }
+    private void SaveVisitedScenes()
+    {
+        PlayerPrefs.SetString("VisitedScenes", string.Join(",", visitedScenes));
+        PlayerPrefs.Save();
+    }
+
+    private void LoadVisitedScenes()
+    {
+        string savedData = PlayerPrefs.GetString("VisitedScenes", "");
+        if (!string.IsNullOrEmpty(savedData))
+        {
+            visitedScenes = new HashSet<string>(savedData.Split(','));
+        }
     }
 }

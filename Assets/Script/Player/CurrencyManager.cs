@@ -1,9 +1,9 @@
 using UnityEngine;
 
 
-public class CurrencyManager
+public class CurrencyManager : MonoBehaviour
 {
-    public int TotalMoney { get; set; }
+    public int TotalMoney = 100;
 
     public void AddMoney(int amount)
     {

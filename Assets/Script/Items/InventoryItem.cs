@@ -1,64 +1,65 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System;
 using UnityEngine.EventSystems;
 
-public class InventoryItem : MonoBehaviour, IPointerClickHandler
+namespace Inventory.UI
 {
-    [SerializeField]
-    private Image itemImage;
-    [SerializeField]
-    private TMP_Text quantity;
-    [SerializeField]
-    private Image borderImg;
-
-    public event Action<InventoryItem> OnItemClicked;
-    public event Action<InventoryItem> OnRightMouseBtnClick;
-
-    private bool empty = true;
-
-    public void Awake()
+    public class InventoryItem : MonoBehaviour, IPointerClickHandler
     {
-        ResetData();
-        Deselect();
-    }
+        [SerializeField]
+        private Image itemImage;
+        [SerializeField]
+        private TMP_Text quantityTxt;
 
-    public void ResetData()
-    {
-        this.itemImage.gameObject.SetActive(false);
-        empty = true;
-    }
+        [SerializeField]
+        private Image borderImage;
 
-    public void Deselect()
-    {
-        borderImg.enabled = false;
-    }
+        public event Action<InventoryItem> OnItemClicked,
+            OnRightMouseBtnClick;
 
-    public void SetData(Sprite sprite, int quantity)
-    {
-        this.itemImage.gameObject.SetActive(true);
-        this.itemImage.sprite = sprite;
-        this.quantity.text = quantity.ToString();
-        empty = false;
-    }
+        private bool empty = true;
 
-    public void Select()
-    {
-        borderImg.enabled = true;
-    }
-
-    public void OnPointerClick(PointerEventData pointerData)
-    {
-        if (pointerData.button == PointerEventData.InputButton.Right)
+        public void Awake()
         {
-            OnRightMouseBtnClick?.Invoke(this);
+            ResetData();
+            Deselect();
         }
-        else
+        public void ResetData()
         {
-            OnItemClicked?.Invoke(this);
+            itemImage.gameObject.SetActive(false);
+            empty = true;
+        }
+        public void Deselect()
+        {
+            borderImage.enabled = false;
+        }
+        public void SetData(Sprite sprite, int quantity)
+        {
+            itemImage.gameObject.SetActive(true);
+            itemImage.sprite = sprite;
+            quantityTxt.text = quantity + "";
+            empty = false;
+        }
+
+        public void Select()
+        {
+            borderImage.enabled = true;
+        }
+
+        public void OnPointerClick(PointerEventData pointerData)
+        {
+            if (pointerData.button == PointerEventData.InputButton.Right)
+            {
+                OnRightMouseBtnClick?.Invoke(this);
+            }
+            else
+            {
+                OnItemClicked?.Invoke(this);
+            }
         }
     }
 }

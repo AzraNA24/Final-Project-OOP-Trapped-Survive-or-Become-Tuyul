@@ -10,12 +10,15 @@ public class PlayerAttack : MonoBehaviour
     public Transform AttackPoint;
     public float AttackRange = 0.5f;
     public LayerMask Layer;
+    public AudioSource hitSound;
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             Attack();
+            hitSound.Play();
+            Debug.Log("Player memukul");
         }
     }
 
@@ -38,10 +41,10 @@ public class PlayerAttack : MonoBehaviour
                 Debug.Log($"Trigger detected: {Thing.gameObject.name}");
             }
 
-            if (objectName == "Aventurine")
+            if (objectLayer == "Tuyul")
             {
-                Debug.Log("Aventurine detected! Switching to TurnBased scene...");
-                SceneManager.LoadScene("TurnBased");
+                Debug.Log("Tuyul detected! Switching to TurnBased scene...");
+                SceneManagerController.Instance.SwitchScene("TurnBased", SceneManagerController.GameMode.TurnBased);
                 return;
             }
             

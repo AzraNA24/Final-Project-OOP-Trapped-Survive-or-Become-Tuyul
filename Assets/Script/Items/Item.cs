@@ -1,7 +1,18 @@
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour
+public enum ItemType
 {
-    public string Name { get; set; } = "Unknown";
-    public abstract void Use(GameObject character);
+    MoneyBag,
+    HealthPotion,
+    Gun,
+    Bullet
+}
+
+[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
+public class Item : ScriptableObject
+{
+    public string itemName;
+    public ItemType itemType;
+    public Sprite itemIcon;
+    public int quantity;
 }
