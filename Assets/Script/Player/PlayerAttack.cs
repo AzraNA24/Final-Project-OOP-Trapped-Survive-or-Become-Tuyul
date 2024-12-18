@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     public float AttackRange = 0.5f;
     public LayerMask Layer;
     public AudioSource hitSound;
+    public static string currentTuyulName;
 
     void Update()
     {
@@ -43,7 +44,8 @@ public class PlayerAttack : MonoBehaviour
 
             if (objectLayer == "Tuyul")
             {
-                Debug.Log("Tuyul detected! Switching to TurnBased scene...");
+                currentTuyulName = Thing.gameObject.name;
+                Debug.Log($"Tuyul detected: {currentTuyulName}! Switching to TurnBased scene...");
                 SceneManagerController.Instance.SwitchScene("TurnBased", SceneManagerController.GameMode.TurnBased);
                 return;
             }

@@ -4,82 +4,145 @@ using System.Collections.Generic;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] private string finalScene; // Scene terakhir
-    [SerializeField] private List<string> middleScenes; // Daftar scene random
-    private static HashSet<string> visitedScenes = new HashSet<string>(); 
-    private static bool isFinalScene = false; 
+    [Header("Rooms")]
+    [SerializeField] private string startingRoom;
+    [SerializeField] private List<string> normalRooms; 
+    [SerializeField] private List<string> miniBossRooms;
+    [SerializeField] private string bossRoom;
+    [SerializeField] private string healRoom;
 
-        private void Awake()
+    [Header("Room Counters")]
+    private static int roomCount = 0; 
+    private static HashSet<string> visitedScenes = new HashSet<string>();
+    private static bool isBossRoomTriggered = false; 
+    private static bool isGameInitialized = false;
+
+    private void Awake()
     {
-        //Biar nggak keulang ruangannya
+        if (!isGameInitialized)
+        {
+            ResetGameProgress();
+            isGameInitialized = true;
+        }
         LoadVisitedScenes();
     }
+
     private void OnApplicationQuit()
     {
-        // Simpan data kunjungan
         SaveVisitedScenes();
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            if (isFinalScene)
+            roomCount++;
+            Debug.Log("Player entered trigger. Room count incremented to: " + roomCount);
+
+            if (isBossRoomTriggered || roomCount >= 10)
             {
-                SceneManagerController.Instance.SwitchScene(finalScene, SceneManagerController.GameMode.Exploration);
+                isBossRoomTriggered = true;
+                Debug.Log("Switching to Boss Room by default");
+                SwitchToRoom(bossRoom);
+            }
+            else if (roomCount >= 4 && Random.value <= 0.4f)
+            {
+                isBossRoomTriggered = true;
+                Debug.Log("Switching to Boss Room by probability.");
+                SwitchToRoom(bossRoom);
+            }
+            else if (ShouldEnterMiniBossRoom())
+            {
+                Debug.Log("Switching to Mini-Boss Room.");
+                string miniBoss = GetRandomRoom(miniBossRooms);
+                SwitchToRoom(miniBoss);
+            }
+            else if (ShouldEnterHealRoom())
+            {
+                Debug.Log("Switching to Heal Room.");
+                SwitchToRoom(healRoom);
             }
             else
             {
-                string nextScene = GetRandomScene();
-                if (nextScene == "")
-                {
-                    isFinalScene = true;
-                    SceneManagerController.Instance.SwitchScene(finalScene, SceneManagerController.GameMode.Exploration);
-                }
-                else
-                {
-                    visitedScenes.Add(nextScene);
-                    SceneManagerController.Instance.SwitchScene(nextScene, SceneManagerController.GameMode.Exploration);
-                }
+                Debug.Log("Switching to Normal Room.");
+                string normalRoom = GetRandomRoom(normalRooms);
+                SwitchToRoom(normalRoom);
             }
         }
     }
 
-    private string GetRandomScene()
+
+    private bool ShouldEnterMiniBossRoom()
     {
-        List<string> unvisitedScenes = new List<string>();
-        foreach (string scene in middleScenes)
+        // 30% chance after 3 rooms
+        return roomCount >= 3 && Random.value <= 0.3f;
+    }
+
+    private bool ShouldEnterHealRoom()
+    {
+        // 30% chance after 4 rooms
+        return roomCount >= 4 && Random.value <= 0.3f;
+    }
+
+    private void SwitchToRoom(string roomName)
+    {
+        visitedScenes.Add(roomName);
+        SaveVisitedScenes();
+        SceneManagerController.Instance.SwitchScene(roomName, SceneManagerController.GameMode.Exploration);
+    }
+    
+
+    private string GetRandomRoom(List<string> roomList)
+    {
+        List<string> unvisitedRooms = new List<string>();
+
+        foreach (string room in roomList)
         {
-            if (!visitedScenes.Contains(scene) && !IsRoomCleared(scene))
+            if (!visitedScenes.Contains(room))
             {
-                unvisitedScenes.Add(scene);
+                unvisitedRooms.Add(room);
             }
         }
 
-        if (unvisitedScenes.Count > 0)
+        Debug.Log("Unvisited Rooms: " + string.Join(", ", unvisitedRooms));
+
+        if (unvisitedRooms.Count > 0)
         {
-            int randomIndex = Random.Range(0, unvisitedScenes.Count);
-            return unvisitedScenes[randomIndex];
+            int randomIndex = Random.Range(0, unvisitedRooms.Count);
+            Debug.Log("Selected Room: " + unvisitedRooms[randomIndex]);
+            return unvisitedRooms[randomIndex];
         }
 
-        return ""; // Semua ruangan telah dikunjungi atau selesai
+        // Jika semua ruangan sudah dikunjungi, ambil ruangan secara acak dari daftar asli
+        string fallbackRoom = roomList[Random.Range(0, roomList.Count)];
+        Debug.Log("Fallback Room: " + fallbackRoom);
+        return fallbackRoom;
     }
 
-    private bool IsRoomCleared(string sceneName)
-    {
-        return PlayerPrefs.GetInt($"{sceneName}_Cleared", 0) == 1;
-    }
+
     private void SaveVisitedScenes()
     {
         PlayerPrefs.SetString("VisitedScenes", string.Join(",", visitedScenes));
+        PlayerPrefs.SetInt("RoomCount", roomCount);
         PlayerPrefs.Save();
     }
 
     private void LoadVisitedScenes()
     {
         string savedData = PlayerPrefs.GetString("VisitedScenes", "");
+        roomCount = PlayerPrefs.GetInt("RoomCount", 0);
+
         if (!string.IsNullOrEmpty(savedData))
         {
             visitedScenes = new HashSet<string>(savedData.Split(','));
         }
+    }
+    private void ResetGameProgress()
+    {
+        roomCount = 0;
+        visitedScenes.Clear();
+        PlayerPrefs.DeleteKey("RoomCount");
+        PlayerPrefs.DeleteKey("VisitedScenes");
+        PlayerPrefs.Save();
     }
 }

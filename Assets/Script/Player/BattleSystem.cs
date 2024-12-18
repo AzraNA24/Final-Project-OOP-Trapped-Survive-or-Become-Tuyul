@@ -8,6 +8,12 @@ public class BattleSystem : MonoBehaviour
     public BattleState state;
     public GameObject Player;
     public GameObject Tuyul;
+    public GameObject Aventurine;
+    public GameObject mrRizzler;
+    public GameObject RollyPolly;
+    public GameObject ChaengYul;
+    public GameObject CheokYul;
+    public GameObject JaekYul;
     public Transform playerStation;
     public Transform tuyulStation;
     public Button buttonAnimator;
@@ -22,11 +28,35 @@ public class BattleSystem : MonoBehaviour
 
         IEnumerator SetupBattle()
     {
+        GameObject selectedTuyulPrefab = null;
+
+        if (PlayerAttack.currentTuyulName == "Aventurine")
+        {
+            selectedTuyulPrefab = Aventurine;
+        }
+        else if (PlayerAttack.currentTuyulName == "MrRizzler")
+        {
+            selectedTuyulPrefab = mrRizzler;
+        }
+        else if (PlayerAttack.currentTuyulName == "RollyPolly")
+        {
+            selectedTuyulPrefab = RollyPolly;
+        }
+        else if (PlayerAttack.currentTuyulName == "ChaengYul")
+        {
+            selectedTuyulPrefab = ChaengYul;
+        }else if (PlayerAttack.currentTuyulName == "CheokYul")
+        {
+            selectedTuyulPrefab = CheokYul;
+        }else if (PlayerAttack.currentTuyulName == "JaekYul")
+        {
+            selectedTuyulPrefab = JaekYul;
+        }
         GameObject playerGO = Instantiate(Player, playerStation);
         playerCharacter = playerGO.GetComponent<Player>();
         buttonAnimator.animator = playerGO.GetComponent<Animator>();
 
-        GameObject enemyGO = Instantiate(Tuyul, tuyulStation);
+        GameObject enemyGO = Instantiate(selectedTuyulPrefab, tuyulStation);
         enemyCharacter = enemyGO.GetComponent<Tuyul>();                    
 
         Debug.Log($"Pertarungan dimulai! {enemyCharacter.Name} muncul!");                

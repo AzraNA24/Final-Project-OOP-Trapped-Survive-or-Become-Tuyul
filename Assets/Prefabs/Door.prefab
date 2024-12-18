@@ -90,11 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7715774d38ac9b04ea588c7726e1a130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finalScene: BossRoom
-  middleScenes:
-  - Heal
-  - MiniBoss1
-  - MiniBoss2
+  startingRoom: StartRoom
+  normalRooms:
   - Room1
   - Room2
   - Room3
@@ -105,3 +102,8 @@ MonoBehaviour:
   - Room8
   - Room9
   - Room10
+  miniBossRooms:
+  - MiniBoss1
+  - MiniBoss2
+  bossRoom: BossRoom
+  healRoom: Heal
