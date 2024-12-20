@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BattleState{ START, PLAYER_TURN, TUYUL_TURN, WON, LOST}
+public enum BattleState { START, PLAYER_TURN, TUYUL_TURN, WON, LOST }
 public class BattleSystem : MonoBehaviour
 {
     public BattleState state;
@@ -18,16 +18,21 @@ public class BattleSystem : MonoBehaviour
     public Transform tuyulStation;
     public Button buttonAnimator;
     private Player playerCharacter;
-    private Tuyul enemyCharacter; 
+    private Tuyul enemyCharacter;
     private System.Random random = new System.Random();
+    public int maxPotionsPerBattle = 5;
+    private int potionCounter;
+
     void Start()
     {
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
-        IEnumerator SetupBattle()
+    IEnumerator SetupBattle()
     {
+        potionCounter = 0;
+
         GameObject selectedTuyulPrefab = null;
 
         if (PlayerAttack.currentTuyulName == "Aventurine")
@@ -45,22 +50,25 @@ public class BattleSystem : MonoBehaviour
         else if (PlayerAttack.currentTuyulName == "ChaengYul")
         {
             selectedTuyulPrefab = ChaengYul;
-        }else if (PlayerAttack.currentTuyulName == "CheokYul")
+        }
+        else if (PlayerAttack.currentTuyulName == "CheokYul")
         {
             selectedTuyulPrefab = CheokYul;
-        }else if (PlayerAttack.currentTuyulName == "JaekYul")
+        }
+        else if (PlayerAttack.currentTuyulName == "JaekYul")
         {
             selectedTuyulPrefab = JaekYul;
         }
+
         GameObject playerGO = Instantiate(Player, playerStation);
         playerCharacter = playerGO.GetComponent<Player>();
         buttonAnimator.animator = playerGO.GetComponent<Animator>();
-
-        enemyCharacter.TuyulAnim.SetBool("TurnBased", true);
+        
         GameObject enemyGO = Instantiate(selectedTuyulPrefab, tuyulStation);
-        enemyCharacter = enemyGO.GetComponent<Tuyul>();                    
+        enemyCharacter.TuyulAnim.SetBool("TurnBased", true);
+        enemyCharacter = enemyGO.GetComponent<Tuyul>();
 
-        Debug.Log($"Pertarungan dimulai! {enemyCharacter.Name} muncul!");                
+        Debug.Log($"Pertarungan dimulai! {enemyCharacter.Name} muncul!");
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYER_TURN;
@@ -76,7 +84,6 @@ public class BattleSystem : MonoBehaviour
     //    polly.partner = rolly;
     //}
 
-
     void PlayerTurn()
     {
         // Terapkan efek poison hanya untuk CheokYul
@@ -84,7 +91,8 @@ public class BattleSystem : MonoBehaviour
         {
             // cheokyul.ApplyPoison(playerCharacter); // Jalankan efek poison
         }
-        if (enemyCharacter is MrRizzler mrRizzler && mrRizzler.DebuffRoundsLeft == 0 && playerCharacter.criticalChance < 0.3f){
+        if (enemyCharacter is MrRizzler mrRizzler && mrRizzler.DebuffRoundsLeft == 0 && playerCharacter.criticalChance < 0.3f)
+        {
             mrRizzler.RemoveDebuff(playerCharacter);
         }
 
@@ -97,12 +105,12 @@ public class BattleSystem : MonoBehaviour
             return;
         StartCoroutine(ShortRangeAttack());
         Debug.Log("Penyerangan selesai dilakukan");
-        
+
     }
 
     IEnumerator ShortRangeAttack()
     {
-        
+
         yield return new WaitUntil(() => !buttonAnimator.animator.GetCurrentAnimatorStateInfo(0).IsName("ShortRange"));
         int AttackPower = Mathf.CeilToInt(playerCharacter.CurrencyManager.TotalMoney * 0.09f);
         bool isCritical = random.NextDouble() < playerCharacter.criticalChance;
@@ -112,7 +120,7 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.Log($"Serangan Critical! Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
         }
-            else
+        else
         {
             Debug.Log($"Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
         }
@@ -159,27 +167,27 @@ public class BattleSystem : MonoBehaviour
 
         if (random.NextDouble() < 0.3)
         {
-                Debug.Log($"You Missed!");
-                state = BattleState.TUYUL_TURN;
-                StartCoroutine(EnemyTurn());
-        } 
+            Debug.Log($"You Missed!");
+            state = BattleState.TUYUL_TURN;
+            StartCoroutine(EnemyTurn());
+        }
         else
         {
-        
-        if (isCritical)
-        {
-            Debug.Log($"Serangan Critical! Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
-        }
+
+            if (isCritical)
+            {
+                Debug.Log($"Serangan Critical! Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
+            }
             else
-        {
-            Debug.Log($"Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
-        }
+            {
+                Debug.Log($"Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
+            }
             bool isDead = enemyCharacter.TakeDamage(finalAttackPower, playerCharacter);
 
             if (enemyCharacter is Aventurine aventurine)
-        {
-            aventurine.FUA(playerCharacter, isCritical);
-        }
+            {
+                aventurine.FUA(playerCharacter, isCritical);
+            }
 
             yield return new WaitForSeconds(2f);
 
@@ -197,8 +205,8 @@ public class BattleSystem : MonoBehaviour
     }
 
     IEnumerator EnemyTurn()
-{
-    Debug.Log($"{enemyCharacter.Name} sedang menyerang!");
+    {
+        Debug.Log($"{enemyCharacter.Name} sedang menyerang!");
 
         yield return new WaitForSeconds(1f);
 
@@ -216,7 +224,7 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.PLAYER_TURN;
             PlayerTurn();
         }
-}
+    }
 
 
     void EndBattle()
@@ -228,7 +236,7 @@ public class BattleSystem : MonoBehaviour
             PlayerPrefs.SetInt($"{enemyCharacter.Name}_Defeated", 1);
             SceneManagerController.Instance.ReturnToLastScene();
             FindObjectOfType<PlayerManager>()?.RespawnPlayer();
-            
+
         }
         else if (state == BattleState.LOST)
         {
@@ -240,6 +248,12 @@ public class BattleSystem : MonoBehaviour
     {
         if (state != BattleState.PLAYER_TURN)
             return;
+
+        if (potionCounter >= maxPotionsPerBattle)
+        {
+            Debug.Log("Kamu telah menggunakan semua potion yang tersedia untuk pertempuran ini, player kembung!");
+            return;
+        }
 
         if (playerCharacter.HasPotion())
         {
@@ -253,6 +267,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator UsePotion()
     {
+        potionCounter++;
         playerCharacter.UsePotion();
         yield return new WaitForSeconds(1f);
 

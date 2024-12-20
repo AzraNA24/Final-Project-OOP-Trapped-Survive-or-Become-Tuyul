@@ -749,7 +749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   Player: {fileID: 8620657125685927805, guid: d27042808ec466e41b78e6f9427a7701, type: 3}
-  Tuyul: {fileID: 0}
+  Tuyul: {fileID: 34059582421728341, guid: ef0910cfcaa6b5d439904a90e726cac6, type: 3}
   Aventurine: {fileID: 6742167402650695385, guid: 834adbe544109a949ac87024c07e062a, type: 3}
   mrRizzler: {fileID: 655817370685930220, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
   RollyPolly: {fileID: 2230084780681459113, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
@@ -759,6 +759,7 @@ MonoBehaviour:
   playerStation: {fileID: 3757373081994050707, guid: d27042808ec466e41b78e6f9427a7701, type: 3}
   tuyulStation: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
   buttonAnimator: {fileID: 221127664}
+  maxPotionsPerBattle: 5
 --- !u!4 &1355302181
 Transform:
   m_ObjectHideFlags: 0

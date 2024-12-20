@@ -7,7 +7,6 @@ public class PlayerManager : MonoBehaviour
     public enum PlayerMode { Exploration, TurnBased }
     public PlayerMode currentMode;
     
-
     // Referensi prefab
     public GameObject explorationPlayerPrefab;
     public GameObject turnBasedPlayerPrefab;
@@ -51,6 +50,7 @@ public class PlayerManager : MonoBehaviour
             Camera.Follow = activePlayer.transform;
         }
     }
+
     public void SetRespawnPosition(Vector3 position)
     {
         respawnPosition = position;
@@ -62,5 +62,21 @@ public class PlayerManager : MonoBehaviour
         {
             activePlayer.transform.position = respawnPosition;
         }
+    }
+
+    public void RestoreLastPosition()
+    {
+        float x = PlayerPrefs.GetFloat("PlayerLastPosX", transform.position.x);
+        float y = PlayerPrefs.GetFloat("PlayerLastPosY", transform.position.y);
+        float z = PlayerPrefs.GetFloat("PlayerLastPosZ", transform.position.z);
+        activePlayer.transform.position = new Vector3(x, y, z);
+    }
+
+    
+    public void SavePlayerPosition(Vector3 position)
+    {
+        PlayerPrefs.SetFloat("PlayerLastPosX", position.x);
+        PlayerPrefs.SetFloat("PlayerLastPosY", position.y);
+        PlayerPrefs.SetFloat("PlayerLastPosZ", position.z);
     }
 }
