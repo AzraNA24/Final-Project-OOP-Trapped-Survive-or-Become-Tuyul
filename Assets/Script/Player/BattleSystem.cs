@@ -63,7 +63,6 @@ public class BattleSystem : MonoBehaviour
         GameObject playerGO = Instantiate(Player, playerStation);
         playerCharacter = playerGO.GetComponent<Player>();
         buttonAnimator.animator = playerGO.GetComponent<Animator>();
-<<<<<<< HEAD
 
         GameObject enemyGO = Instantiate(selectedTuyulPrefab, tuyulStation);
         enemyCharacter = enemyGO.GetComponent<Tuyul>();
@@ -75,12 +74,6 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.Log("Animator pada enemyCharacter tidak ditemukan!");
         }
-=======
-        
-        GameObject enemyGO = Instantiate(selectedTuyulPrefab, tuyulStation);
-        enemyCharacter.TuyulAnim.SetBool("TurnBased", true);
-        enemyCharacter = enemyGO.GetComponent<Tuyul>();
->>>>>>> 1be6fe773d7c3406b8afe10088197bb1c7c8805c
 
         Debug.Log($"Pertarungan dimulai! {enemyCharacter.Name} muncul!");
         yield return new WaitForSeconds(2f);

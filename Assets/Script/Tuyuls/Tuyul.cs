@@ -17,7 +17,6 @@ public class Tuyul : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        TuyulAnim.SetBool("TurnBased", false);
 
         if (TuyulAnim == null)
         {
@@ -26,6 +25,7 @@ public class Tuyul : MonoBehaviour
             {
                 Debug.LogError($"{name} tidak memiliki komponen Animator!");
             }
+            TuyulAnim.SetBool("TurnBased", false);
         }
     }
 
