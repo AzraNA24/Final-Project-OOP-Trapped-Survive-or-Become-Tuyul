@@ -4,7 +4,6 @@ using UnityEngine;
 public class Aventurine : Tuyul
 {
     private bool canFUA = false;
-
     public Aventurine()
     {
         Name = "Aventurine";

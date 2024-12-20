@@ -34,7 +34,7 @@ public class BattleSystem : MonoBehaviour
         {
             selectedTuyulPrefab = Aventurine;
         }
-        else if (PlayerAttack.currentTuyulName == "MrRizzler")
+        else if (PlayerAttack.currentTuyulName == "Mr.Rizzler")
         {
             selectedTuyulPrefab = mrRizzler;
         }
@@ -56,6 +56,7 @@ public class BattleSystem : MonoBehaviour
         playerCharacter = playerGO.GetComponent<Player>();
         buttonAnimator.animator = playerGO.GetComponent<Animator>();
 
+        enemyCharacter.TuyulAnim.SetBool("TurnBased", true);
         GameObject enemyGO = Instantiate(selectedTuyulPrefab, tuyulStation);
         enemyCharacter = enemyGO.GetComponent<Tuyul>();                    
 

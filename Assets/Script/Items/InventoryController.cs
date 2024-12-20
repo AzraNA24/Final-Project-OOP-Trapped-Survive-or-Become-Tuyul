@@ -13,43 +13,92 @@ public class InventoryController : MonoBehaviour
 
     public int inventorySize = 10;
     public AudioSource Open;
+    public static InventoryController Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // Validasi Null
+        if (inventoryUI == null)
+        {
+            Debug.LogError("InventoryUI is not assigned in the Inspector!");
+        }
+
+        if (codexUI == null)
+        {
+            Debug.LogError("CodexUI is not assigned in the Inspector!");
+        }
+
+        if (Open == null)
+        {
+            Debug.LogError("AudioSource (Open) is not assigned in the Inspector!");
+        }
+    }
 
     private void Start()
     {
-        inventoryUI.InitializeInventoryUI(inventorySize);
+        if (inventoryUI != null)
+        {
+            inventoryUI.InitializeInventoryUI(inventorySize);
+        }
     }
 
     private void Update()
     {
+        // Membuka/Tutup Inventory
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (!inventoryUI.isActiveAndEnabled)
+            if (inventoryUI != null)
             {
-                if (!Open.isActiveAndEnabled)
+                if (!inventoryUI.isActiveAndEnabled)
                 {
-                    Open.enabled = true;
+                    PlayOpenSound();
+                    inventoryUI.Show();
+                    Debug.Log("Inventory terbuka");
                 }
-                Open.Play();
-                inventoryUI.Show();
-                Debug.Log("Inventory terbuka");
-            }
-            else
-            {
-                inventoryUI.Hide();
-                Debug.Log("Inventory tertutup");
+                else
+                {
+                    inventoryUI.Hide();
+                    Debug.Log("Inventory tertutup");
+                }
             }
         }
+
+        // Membuka/Tutup Codex
         if (Input.GetKeyDown(KeyCode.C))
         {
-            if (!codexUI.isActiveAndEnabled)
+            if (codexUI != null)
             {
-                Open.Play();
-                codexUI.Show();
+                if (!codexUI.isActiveAndEnabled)
+                {
+                    PlayOpenSound();
+                    codexUI.Show();
+                    Debug.Log("Codex terbuka");
+                }
+                else
+                {
+                    codexUI.Hide();
+                    Debug.Log("Codex tertutup");
+                }
             }
-            else
-            {
-                codexUI.Hide();
-            }
+        }
+    }
+
+    private void PlayOpenSound()
+    {
+        if (Open != null && !Open.isPlaying)
+        {
+            Open.Play();
         }
     }
 }

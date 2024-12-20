@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class CodexUI : MonoBehaviour
 {
@@ -16,9 +17,11 @@ public class CodexUI : MonoBehaviour
         public string[] Abilities;
         public string[] SpecialSkill;
         public string PassiveTalent;
+        public bool isUnlocked;
+
     }
     public TuyulCharacter[] tuyulCodex = new TuyulCharacter[]
-{
+    {
         new TuyulCharacter {
         Name = "Aventurine",
         Title = "The Sparkling Trickster",
@@ -109,18 +112,7 @@ public class CodexUI : MonoBehaviour
         SpecialSkill = new string []{"Can transform into any Tuyul and access their special skills."},
         PassiveTalent = "" 
         },
-};
-
-
-    public void Show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+    };
 
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI descriptionText;
@@ -132,19 +124,53 @@ public class CodexUI : MonoBehaviour
     public TextMeshProUGUI passiveSkillText;
     public Image targetImage;
     public Sprite[] tuyulSprites;
+    public AudioSource newIntro;
 
+    private void Awake()
+    {
+        if (FindObjectsOfType<CodexUI>().Length > 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
     public void DisplayTuyulCharacter(int index)
     {
         SetImageByIndex(index);
         TuyulCharacter character = tuyulCodex[index];
-        titleText.text = character.Title;
-        descriptionText.text = character.Description;
-        hpText.text = "HP: " + character.HP;
-        moneyText.text = "Money: " + character.PocketMoney;
-        baseAttackText.text = "Base Attack: " + character.BaseAttack;
-        abilitiesText.text = string.Join("\n", character.Abilities);
-        specialSkillText.text = "Special Skill:\n" + string.Join("\n", character.SpecialSkill);
-        passiveSkillText.text = "Passive Skill: " + character.PassiveTalent;
+        if (character.isUnlocked)
+        {
+            titleText.text = character.Title;
+            descriptionText.text = character.Description;
+            hpText.text = "HP: " + character.HP;
+            moneyText.text = "Money: " + character.PocketMoney;
+            baseAttackText.text = "Base Attack: " + character.BaseAttack;
+            abilitiesText.text = string.Join("\n", character.Abilities);
+            specialSkillText.text = string.Join("\n", "Special Skill: " + character.SpecialSkill);
+            passiveSkillText.text = "Passive Skill: " + character.PassiveTalent;
+        }
+        else
+        {
+            titleText.text = "???";
+            descriptionText.text = "You have not encountered this enemy yet.";
+            hpText.text = "";
+            moneyText.text = "";
+            baseAttackText.text = "";
+            abilitiesText.text = "";
+            specialSkillText.text = "";
+            passiveSkillText.text = "";
+        }
     }
 
     public void SetImageByIndex(int index)
@@ -158,5 +184,19 @@ public class CodexUI : MonoBehaviour
             Debug.LogError("Indeks gambar tidak valid!");
         }
     }
+
+    public int GetTuyulIndexByName(string tuyulName)
+    {
+        for (int i = 0; i < tuyulCodex.Length; i++)
+        {
+            if (tuyulCodex[i].Name == tuyulName)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
 
 }

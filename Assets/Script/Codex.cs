@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CodexManager : MonoBehaviour
+public class Codex: MonoBehaviour
 {
     public Text titleText;
     public Text descText;

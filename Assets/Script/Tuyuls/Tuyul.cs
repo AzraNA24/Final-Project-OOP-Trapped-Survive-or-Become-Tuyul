@@ -16,7 +16,7 @@ public class Tuyul : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        TuyulAnim.SetBool("TurnBased", true);
+        TuyulAnim.SetBool("TurnBased", false);
 
         if (TuyulAnim == null)
         {
