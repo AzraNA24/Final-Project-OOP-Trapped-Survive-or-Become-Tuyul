@@ -26,7 +26,7 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(SetupBattle());
     }
 
-        IEnumerator SetupBattle()
+    IEnumerator SetupBattle()
     {
         GameObject selectedTuyulPrefab = null;
 
@@ -45,27 +45,38 @@ public class BattleSystem : MonoBehaviour
         else if (PlayerAttack.currentTuyulName == "ChaengYul")
         {
             selectedTuyulPrefab = ChaengYul;
-        }else if (PlayerAttack.currentTuyulName == "CheokYul")
+        }
+        else if (PlayerAttack.currentTuyulName == "CheokYul")
         {
             selectedTuyulPrefab = CheokYul;
-        }else if (PlayerAttack.currentTuyulName == "JaekYul")
+        }
+        else if (PlayerAttack.currentTuyulName == "JaekYul")
         {
             selectedTuyulPrefab = JaekYul;
         }
+
         GameObject playerGO = Instantiate(Player, playerStation);
         playerCharacter = playerGO.GetComponent<Player>();
         buttonAnimator.animator = playerGO.GetComponent<Animator>();
 
-        enemyCharacter.TuyulAnim.SetBool("TurnBased", true);
         GameObject enemyGO = Instantiate(selectedTuyulPrefab, tuyulStation);
-        enemyCharacter = enemyGO.GetComponent<Tuyul>();                    
+        enemyCharacter = enemyGO.GetComponent<Tuyul>();
+        if (enemyCharacter.TuyulAnim != null)
+        {
+            enemyCharacter.TuyulAnim.SetBool("TurnBased", true);
+        }
+        else
+        {
+            Debug.Log("Animator pada enemyCharacter tidak ditemukan!");
+        }
 
-        Debug.Log($"Pertarungan dimulai! {enemyCharacter.Name} muncul!");                
+        Debug.Log($"Pertarungan dimulai! {enemyCharacter.Name} muncul!");
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYER_TURN;
         PlayerTurn();
     }
+
 
     //void SetupRollyPollyPair()
     //{

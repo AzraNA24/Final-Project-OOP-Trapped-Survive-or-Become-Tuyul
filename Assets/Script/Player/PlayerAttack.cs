@@ -58,6 +58,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 currentTuyulName = Thing.gameObject.name;
                 isTriggered = true;
+                CodexUI codexUI = CodexUI.Instance;
                 int index = codexUI.GetTuyulIndexByName(currentTuyulName);
                 if (index != -1)
                 {
@@ -67,7 +68,7 @@ public class PlayerAttack : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("Tuyul tidak ditemukan dalam codex!");
+                    Debug.Log("Tuyul tidak ditemukan dalam codex!");
                 }
 
                 Debug.Log($"Tuyul detected: {currentTuyulName}! Switching to TurnBased scene after audio...");

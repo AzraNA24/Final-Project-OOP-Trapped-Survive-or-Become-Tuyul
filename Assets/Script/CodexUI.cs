@@ -125,15 +125,24 @@ public class CodexUI : MonoBehaviour
     public Image targetImage;
     public Sprite[] tuyulSprites;
     public AudioSource newIntro;
+    private static bool isGameInitialized = false;
+
+    public static CodexUI Instance { get; private set; }
 
     private void Awake()
     {
-        if (FindObjectsOfType<CodexUI>().Length > 1)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
+        Instance = this;
         DontDestroyOnLoad(gameObject);
+        if (!isGameInitialized)
+        {
+            ResetCodexData();
+            isGameInitialized = true;
+        }
     }
 
     public void Show()
@@ -196,7 +205,11 @@ public class CodexUI : MonoBehaviour
         }
         return -1;
     }
-
-
-
+    public void ResetCodexData()
+    {
+        for (int i = 0; i < tuyulCodex.Length; i++)
+        {
+            tuyulCodex[i].isUnlocked = false;
+        }
+    }
 }
