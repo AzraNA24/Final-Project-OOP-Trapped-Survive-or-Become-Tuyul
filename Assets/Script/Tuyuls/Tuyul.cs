@@ -10,6 +10,7 @@ public class Tuyul : MonoBehaviour
     public int currentHealth;
     public int AttackPower;
     public int Money;
+    private bool isOfferingMoney = false;
     public System.Random random = new System.Random();
     public TuyulType Type { get; set; }
 
@@ -41,42 +42,61 @@ public class Tuyul : MonoBehaviour
         }
 
         // Offer to surrender if health is low
-        if (currentHealth <= 15)
+        if (currentHealth <= maxHealth * 0.3f && !isOfferingMoney)
         {
+            isOfferingMoney = true;
             Debug.Log($"{Name} menawarkan uang sebesar {Money} untuk ganti nyawanya. Terima? (1 = Iya, 2 = Tidak)");
 
-            // Simulate player choice (modify as needed for your game input)
-            int playerChoice = 1; // Example choice, replace with actual input handling
-
-            if (playerChoice == 1)
-            {
-                playerCharacter.CurrencyManager.AddMoney(Money);
-                Debug.Log($"{Name} melarikan diri!");
-                currentHealth = 0;
-                return true;
-            }
+            StartCoroutine(WaitForPlayerChoice(playerCharacter)); // Tunggu input pemain
+            return false; 
         }
+
         return false;
     }
 
-    public enum TuyulType
+    private IEnumerator WaitForPlayerChoice(Player playerCharacter)
     {
-    Aventurine,
-    MrRizzler,
-    RollyPolly,
-    ChaengYul,
-    CheokYul,
-    JaekYul
+        bool decisionMade = false;
+        while (!decisionMade)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) // Pemain memilih "Terima"
+            {
+                Debug.Log($"{Name} melarikan diri setelah memberikan uang sebesar {Money}!");
+                playerCharacter.CurrencyManager.AddMoney(Money);
+                currentHealth = 0; // Tuyul mati
+                decisionMade = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2)) // Pemain memilih "Tolak"
+            {
+                Debug.Log($"{Name} terus melawan!");
+                decisionMade = true;
+            }
+
+            yield return null; // Tunggu frame berikutnya
+        }
+
+        isOfferingMoney = false; // Reset flag
     }
+
     public virtual void EnemyAction(Player playerCharacter)
     {
         NormalAttack(playerCharacter);
     }
-    public virtual void NormalAttack(Player playerCharacter)
-{
-    playerCharacter.TakeDamage(AttackPower);
-    TuyulAnim.SetTrigger("Throws");
-    Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
-}
 
+    public virtual void NormalAttack(Player playerCharacter)
+    {
+        playerCharacter.TakeDamage(AttackPower);
+        TuyulAnim.SetTrigger("Throws");
+        Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
+    }
+
+    public enum TuyulType
+    {
+        Aventurine,
+        MrRizzler,
+        RollyPolly,
+        ChaengYul,
+        CheokYul,
+        JaekYul
+    }
 }

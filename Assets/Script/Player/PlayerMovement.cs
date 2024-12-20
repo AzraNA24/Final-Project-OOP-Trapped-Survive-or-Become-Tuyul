@@ -32,32 +32,32 @@ public class PlayerMovement : MonoBehaviour
     bool isMoving = movement.sqrMagnitude > 0;                                                                                                           
     animator.SetBool("isMoving", isMoving);
 
-        if (isMoving)
-        {
-            idleTimer = 0f;
-            PlayFootstepSound();
-        }
-        else
-        {
-            StopFootstepSound();
-            idleTimer += Time.deltaTime;
-        }
+    if (isMoving)
+    {
+        idleTimer = 0f;
+        PlayFootstepSound();
+    }
+    else
+    {
+        StopFootstepSound();
+        idleTimer += Time.deltaTime;
+    }
 
-        if (idleTimer > idleThreshold)
-        {
-            animator.SetBool("isIdle", true);
-        }
-        else
-        {
-            animator.SetBool("isIdle", false);
-        }
+    if (idleTimer > idleThreshold)
+    {
+        animator.SetBool("isIdle", true);
+    }
+    else
+    {
+        animator.SetBool("isIdle", false);
+    }
 
-        // if (Input.GetMouseButtonDown(0) && !isAttacking)
-        // {
-        //     animator.SetFloat("Horizontal", movement.x);
-        //     animator.SetFloat("Vertical", movement.y);
-        //     // StartCoroutine(PerformAttack());
-        // }
+    // if (Input.GetMouseButtonDown(0) && !isAttacking)
+    // {
+    //     animator.SetFloat("Horizontal", movement.x);
+    //     animator.SetFloat("Vertical", movement.y);
+    //     // StartCoroutine(PerformAttack());
+    // }
 
     }
 
@@ -95,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
 //     animator.SetBool("isClick", false);
 //     isAttacking = false;
 // }
+
     void PlayFootstepSound()
     {
         if (!isPlayingFootstep)
@@ -105,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
             isPlayingFootstep = true;
         }
     }
+
     void StopFootstepSound()
     {
         if (isPlayingFootstep)
@@ -114,5 +116,4 @@ public class PlayerMovement : MonoBehaviour
             isPlayingFootstep = false;
         }
     }
-
 }

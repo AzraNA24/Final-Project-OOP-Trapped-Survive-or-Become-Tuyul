@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
         bullets += amount;
         Debug.Log($"Peluru ditambahkan sejumlah {amount}. Total peluru: {bullets}");
     }
+    
     public bool HasPotion()
     {
         return potions > 0;

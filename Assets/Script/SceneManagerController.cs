@@ -64,11 +64,12 @@ public class SceneManagerController : MonoBehaviour
 
     private void SavePlayerPosition()
     {
-        // Simpan posisi Player yang aktif
+        PlayerManager playerManager = FindObjectOfType<PlayerManager>();
         GameObject activePlayer = GameObject.FindWithTag("Player");
-        if (activePlayer != null)
+
+        if (playerManager != null && activePlayer != null)
         {
-            playerPosition = activePlayer.transform.position;
+            playerManager.SavePlayerPosition(activePlayer.transform.position);
         }
     }
 
@@ -81,11 +82,13 @@ public class SceneManagerController : MonoBehaviour
             activePlayer.transform.position = playerPosition;
         }
     }
+    
     public void ReturnToLastScene()
     {
         if (!string.IsNullOrEmpty(lastSceneName))
         {
             SceneManager.LoadScene(lastSceneName);
+            FindObjectOfType<PlayerManager>()?.RestoreLastPosition();
         }
         else
         {
