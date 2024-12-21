@@ -39,7 +39,7 @@ namespace Inventory.UI
             for (int i = 0; i < inventorysize; i++)
             {
                 InventoryItem uiItem =
-                    Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+                    Instantiate(itemPrefab, Vector2.zero, Quaternion.identity);
                 uiItem.transform.SetParent(contentPanel);
                 listOfUIItems.Add(uiItem);
                 uiItem.OnRightMouseBtnClick += HandleShowItemActions;

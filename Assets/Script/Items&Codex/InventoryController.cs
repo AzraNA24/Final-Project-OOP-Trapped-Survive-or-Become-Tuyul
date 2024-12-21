@@ -17,31 +17,20 @@ public class InventoryController : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         // Validasi Null
         if (inventoryUI == null)
         {
-            Debug.LogError("InventoryUI is not assigned in the Inspector!");
+            Debug.Log("InventoryUI is not assigned in the Inspector!");
         }
 
         if (codexUI == null)
         {
-            Debug.LogError("CodexUI is not assigned in the Inspector!");
+            Debug.Log("CodexUI is not assigned in the Inspector!");
         }
 
         if (Open == null)
         {
-            Debug.LogError("AudioSource (Open) is not assigned in the Inspector!");
+            Debug.Log("AudioSource (Open) is not assigned in the Inspector!");
         }
     }
 

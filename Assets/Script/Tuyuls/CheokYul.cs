@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CheokYul : Tuyul
 {
+    public int DebuffRoundsLeft = 0;
     private bool isFlying = false; // Status untuk passive skill
     private int poisonDuration = 3; // Durasi poison effect (3 giliran)
 
@@ -20,10 +21,51 @@ public class CheokYul : Tuyul
         currentHealth -= damage;
         Debug.Log($"{Name} menerima {damage} damage! Sisa HP: {currentHealth}");
         
+        // Offer to surrender if health is low
+        if (currentHealth > 0 && currentHealth <= maxHealth * 0.3f && !isOfferingMoney)
+        {
+            Debug.Log($"{Name} menyerang pemain terlebih dahulu sebelum menawarkan deal.");
+            StartCoroutine(ExecuteNormalAttack(playerCharacter));
+            
+            // Setelah serangan selesai, mulai tawaran
+            StartCoroutine(OfferDeal(playerCharacter));
+            return false; 
+        }
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            return true; 
+            return true; // Tuyul is dead
+        }
+
+        return false;
+    }
+
+    public override IEnumerator OfferDeal(Player playerCharacter)
+    {
+        yield return new WaitForSeconds(1f); // Jeda untuk memastikan serangan selesai
+        isOfferingMoney = true;
+        Debug.Log($"{Name} menawarkan uang sebesar {Money} untuk ganti nyawanya. Terima? (1 = Iya, 2 = Tidak)");
+        yield return StartCoroutine(WaitForPlayerChoice(playerCharacter)); // Tunggu input pemain
+    }
+
+    public override void EnemyAction(Player playerCharacter)
+    {
+        if (isOfferingMoney)
+        {
+            Debug.Log($"{Name} sedang menunggu keputusan pemain. Tidak melakukan aksi lain.");
+            return;
+        }
+
+        StartCoroutine(ExecuteEnemyAction(playerCharacter));
+    }
+
+    private IEnumerator ExecuteEnemyAction(Player playerCharacter)
+    {
+        if (DebuffRoundsLeft > 0)
+        {
+            DebuffRoundsLeft--;
+            Debug.Log($"{Name} terus memengaruhi critical chance pemain! Ronde tersisa: {DebuffRoundsLeft}");
         }
 
         if (random.NextDouble() < 0.4)
@@ -33,6 +75,7 @@ public class CheokYul : Tuyul
             {
                 TuyulAnim.SetTrigger("TPBP");
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
+                yield return new WaitForSeconds(1f);
             }
         }
 
@@ -44,25 +87,26 @@ public class CheokYul : Tuyul
 
             Debug.Log($"{Name} masuk ke mode 'The Flying Horror'!");
         }
+
         if (Random.value < 0.2f) // Special Skill: The Democracy
         {
-            UseTheDemocracy(playerCharacter);
+            yield return StartCoroutine(UseTheDemocracy(playerCharacter));
         }
         else if (Random.value < 0.2f) // Special Skill: Monster Lurks Beneath The Shadow of The Dawn
         {
-            UsePoison(playerCharacter);
+            yield return StartCoroutine(UsePoison(playerCharacter));
         }
         else
         {
             // basic attack
             NormalAttack(playerCharacter);
         }
-
-        return false;
     }
 
-    private void UseTheDemocracy(Player playerCharacter)
+    public IEnumerator UseTheDemocracy(Player playerCharacter)
     {
+        yield return new WaitForSeconds(1f);
+
         int roachesCount = Random.Range(2, 9); // Memanggil 2-8 kecoak kecil
         Debug.Log($"{Name} memanggil {roachesCount} kecoak kecil untuk menyerang!");
 
@@ -74,8 +118,9 @@ public class CheokYul : Tuyul
         }
     }
 
-    public void UsePoison(Player playerCharacter)
+    public IEnumerator UsePoison(Player playerCharacter)
     {
+        yield return new WaitForSeconds(1f);
         Debug.Log($"{Name} menggunakan jurus 'Monster Lurks Beneath The Shadow of The Dawn'! Pemain terkena efek poison selama {poisonDuration} giliran.");
         playerCharacter.StartCoroutine(ApplyPoison(playerCharacter));
     }
@@ -93,8 +138,14 @@ public class CheokYul : Tuyul
 
     public override void NormalAttack(Player playerCharacter)
     {
+        StartCoroutine(ExecuteNormalAttack(playerCharacter));
+    }
+
+    private IEnumerator ExecuteNormalAttack(Player playerCharacter)
+    {
+        TuyulAnim.SetTrigger("Throw");
+        yield return new WaitForSeconds(1f);
         playerCharacter.TakeDamage(AttackPower);
-        TuyulAnim.SetTrigger("Throws");
         Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
     }
 }
