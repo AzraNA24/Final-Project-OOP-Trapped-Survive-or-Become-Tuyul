@@ -10,7 +10,7 @@ public class Tuyul : MonoBehaviour
     public int currentHealth;
     public int AttackPower;
     public int Money;
-    private bool isOfferingMoney = false;
+    public bool isOfferingMoney = false;
     public System.Random random = new System.Random();
     public TuyulType Type { get; set; }
 
@@ -35,27 +35,37 @@ public class Tuyul : MonoBehaviour
         currentHealth -= damage;
         Debug.Log($"{Name} menerima {damage} damage! Sisa HP: {currentHealth}");
 
+        // Offer to surrender if health is low
+        if (currentHealth > 0 && currentHealth <= maxHealth * 0.3f && !isOfferingMoney)
+        {
+            Debug.Log($"{Name} menyerang pemain terlebih dahulu sebelum menawarkan deal.");
+    
+            // Setelah serangan selesai, mulai tawaran
+            StartCoroutine(OfferDeal(playerCharacter));
+            return false; 
+        }
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
             return true; // Tuyul is dead
         }
 
-        // Offer to surrender if health is low
-        if (currentHealth <= maxHealth * 0.3f && !isOfferingMoney)
-        {
-            isOfferingMoney = true;
-            Debug.Log($"{Name} menawarkan uang sebesar {Money} untuk ganti nyawanya. Terima? (1 = Iya, 2 = Tidak)");
-
-            StartCoroutine(WaitForPlayerChoice(playerCharacter)); // Tunggu input pemain
-            return false; 
-        }
-
         return false;
     }
 
-    private IEnumerator WaitForPlayerChoice(Player playerCharacter)
+    public virtual IEnumerator OfferDeal(Player playerCharacter)
     {
+        yield return new WaitForSeconds(1f); // Jeda untuk memastikan serangan selesai
+        isOfferingMoney = true;
+        Debug.Log($"{Name} menawarkan uang sebesar {Money} untuk ganti nyawanya. Terima? (1 = Iya, 2 = Tidak)");
+        yield return StartCoroutine(WaitForPlayerChoice(playerCharacter)); // Tunggu input pemain
+    }
+
+    public IEnumerator WaitForPlayerChoice(Player playerCharacter)
+    {
+        Debug.Log("Menunggu input pemain...");
+
         bool decisionMade = false;
         while (!decisionMade)
         {
@@ -65,6 +75,9 @@ public class Tuyul : MonoBehaviour
                 playerCharacter.CurrencyManager.AddMoney(Money);
                 currentHealth = 0; // Tuyul mati
                 decisionMade = true;
+
+                // Akhiri pertarungan
+                EndBattleEarly();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2)) // Pemain memilih "Tolak"
             {
@@ -76,6 +89,12 @@ public class Tuyul : MonoBehaviour
         }
 
         isOfferingMoney = false; // Reset flag
+    }
+
+    private void EndBattleEarly()
+    {
+        Debug.Log("Pertarungan diakhiri karena pemain menerima tawaran Tuyul.");
+        SceneManagerController.Instance.ReturnToLastScene();
     }
 
     public virtual void EnemyAction(Player playerCharacter)

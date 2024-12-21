@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
     public Vector3 respawnPosition;
     public CinemachineVirtualCamera Camera;
     public InventoryController inventory;
+    public Vector2 explorationStartPosition; 
 
     private GameObject activePlayer;
 
@@ -71,12 +72,39 @@ public class PlayerManager : MonoBehaviour
         float z = PlayerPrefs.GetFloat("PlayerLastPosZ", transform.position.z);
         activePlayer.transform.position = new Vector3(x, y, z);
     }
-
-    
+  
     public void SavePlayerPosition(Vector3 position)
     {
         PlayerPrefs.SetFloat("PlayerLastPosX", position.x);
         PlayerPrefs.SetFloat("PlayerLastPosY", position.y);
         PlayerPrefs.SetFloat("PlayerLastPosZ", position.z);
     }
+
+    public void SaveExplorationStartPosition()
+    {
+        if (activePlayer != null)
+        {
+            explorationStartPosition = activePlayer.transform.position;
+            Debug.Log($"Posisi awal eksplorasi disimpan: {explorationStartPosition}");
+        }
+    }
+
+    public void RestoreExplorationStartPosition()
+    {
+        if (activePlayer != null)
+        {
+            activePlayer.transform.position = explorationStartPosition;
+            Debug.Log($"Posisi awal eksplorasi dipulihkan: {explorationStartPosition}");
+        }
+    }
+
+    public void CheckAndRemoveDefeatedTuyuls(GameObject tuyulObject, string tuyulName)
+    {
+        if (PlayerPrefs.HasKey($"{tuyulName}_Defeated") && PlayerPrefs.GetInt($"{tuyulName}_Defeated") == 1)
+        {
+            Destroy(tuyulObject);
+            Debug.Log($"{tuyulName} sudah dikalahkan dan dihapus dari scene eksplorasi.");
+        }
+    }
+
 }

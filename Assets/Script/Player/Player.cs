@@ -25,8 +25,8 @@ public class Player : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth += Mathf.RoundToInt(amount * healthPotionEffectiveness);
-        if (currentHealth > 100)
-            currentHealth = 100;
+        //if (currentHealth > 100)
+        //    currentHealth = 100;
     }
 
     public bool HasBullets()

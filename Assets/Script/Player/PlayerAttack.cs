@@ -58,6 +58,8 @@ public class PlayerAttack : MonoBehaviour
             {
                 currentTuyulName = Thing.gameObject.name;
                 isTriggered = true;
+
+                /*
                 CodexUI codexUI = CodexUI.Instance;
                 int index = codexUI.GetTuyulIndexByName(currentTuyulName);
                 if (index != -1)
@@ -70,6 +72,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     Debug.Log("Tuyul tidak ditemukan dalam codex!");
                 }
+                */
 
                 Debug.Log($"Tuyul detected: {currentTuyulName}! Switching to TurnBased scene after audio...");
                 StartCoroutine(PlayAudioAndSwitchScene());
@@ -84,15 +87,17 @@ public class PlayerAttack : MonoBehaviour
         }
     }
     IEnumerator PlayAudioAndSwitchScene()
-    {
+    {      /*
         if (newIntro != null && !codexUI.tuyulCodex[codexIndex].isUnlocked)
         {
             newIntro.Play();
             yield return new WaitForSeconds(newIntro.clip.length);
-        }
+        }  */
 
         // Pindah ke scene setelah audio selesai
         SceneManagerController.Instance.SwitchScene("TurnBased", SceneManagerController.GameMode.TurnBased);
+
+        yield break; // ini sementara biar ga error
     }
 
     private void OnDrawGizmosSelected()
