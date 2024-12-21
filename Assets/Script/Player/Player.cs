@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public CurrencyManager CurrencyManager;
     private int bullets = 5;
     public int potions = 1;
-    public float criticalChance = 0.3f; // Default 30%         eh ini blm ada implementasinya yak di serangan
+    public float criticalChance = 0.3f; // Default 30%         eh ini blm ada implementasinya yak di serangan re: udahh
     public float healthPotionEffectiveness = 1.0f; // Default 100%
 
     public bool TakeDamage(int damage)
