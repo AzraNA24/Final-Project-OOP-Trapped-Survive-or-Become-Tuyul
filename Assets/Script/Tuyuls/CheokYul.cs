@@ -85,6 +85,7 @@ public class CheokYul : Tuyul
             isFlying = true;
             // tambahin kode buat animasi dia terbang
 
+            TuyulAnim.SetTrigger("Passive");
             Debug.Log($"{Name} masuk ke mode 'The Flying Horror'!");
         }
 
@@ -108,6 +109,7 @@ public class CheokYul : Tuyul
         yield return new WaitForSeconds(1f);
 
         int roachesCount = Random.Range(2, 9); // Memanggil 2-8 kecoak kecil
+        TuyulAnim.SetTrigger("Democracy");
         Debug.Log($"{Name} memanggil {roachesCount} kecoak kecil untuk menyerang!");
 
         for (int i = 0; i < roachesCount; i++)
@@ -121,6 +123,7 @@ public class CheokYul : Tuyul
     public IEnumerator UsePoison(Player playerCharacter)
     {
         yield return new WaitForSeconds(1f);
+        TuyulAnim.SetTrigger("Monster");
         Debug.Log($"{Name} menggunakan jurus 'Monster Lurks Beneath The Shadow of The Dawn'! Pemain terkena efek poison selama {poisonDuration} giliran.");
         playerCharacter.StartCoroutine(ApplyPoison(playerCharacter));
     }
