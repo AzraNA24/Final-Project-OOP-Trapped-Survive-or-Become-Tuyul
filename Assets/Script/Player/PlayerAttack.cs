@@ -95,6 +95,8 @@ public class PlayerAttack : MonoBehaviour
 
         // Pindah ke scene setelah audio selesai
         SceneManagerController.Instance.SwitchScene("TurnBased", SceneManagerController.GameMode.TurnBased);
+
+        yield break; // ini sementara biar ga error
     }
 
     private void OnDrawGizmosSelected()

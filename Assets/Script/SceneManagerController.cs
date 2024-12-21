@@ -12,7 +12,7 @@ public class SceneManagerController : MonoBehaviour
     public GameObject playerController;
     private GameObject playerControllerInstance;
 
-    private Vector3 playerPosition; // Menyimpan posisi Player terakhir
+    private Vector2 playerPosition; // Menyimpan posisi Player terakhir
 
     void Awake()
     {
@@ -34,10 +34,12 @@ public class SceneManagerController : MonoBehaviour
 
     public void SwitchScene(string sceneName, GameMode mode)
     {
-        // Simpan posisi Player saat ini
-        SavePlayerPosition();
+        if (mode == GameMode.TurnBased)
+        {
+            // Simpan posisi eksplorasi sebelum masuk Turn-Based
+            FindObjectOfType<PlayerManager>()?.SaveExplorationStartPosition();
+        }
 
-        // Update Mode
         currentMode = mode;
         if (mode == GameMode.TurnBased)
         {
@@ -69,7 +71,9 @@ public class SceneManagerController : MonoBehaviour
 
         if (playerManager != null && activePlayer != null)
         {
-            playerManager.SavePlayerPosition(activePlayer.transform.position);
+            playerPosition = activePlayer.transform.position; 
+            playerManager.SavePlayerPosition(playerPosition); 
+            Debug.Log($"Posisi pemain disimpan: {playerPosition}");
         }
     }
 
@@ -80,6 +84,7 @@ public class SceneManagerController : MonoBehaviour
         if (activePlayer != null)
         {
             activePlayer.transform.position = playerPosition;
+            Debug.Log($"Posisi pemain dipulihkan: {playerPosition}");
         }
     }
     
@@ -88,7 +93,19 @@ public class SceneManagerController : MonoBehaviour
         if (!string.IsNullOrEmpty(lastSceneName))
         {
             SceneManager.LoadScene(lastSceneName);
-            FindObjectOfType<PlayerManager>()?.RestoreLastPosition();
+            SceneManager.sceneLoaded += (scene, mode) =>
+            {
+                // Pulihkan posisi Player
+                FindObjectOfType<PlayerManager>()?.RestoreExplorationStartPosition();
+
+                // Hapus Tuyul yang sudah dikalahkan
+                GameObject[] tuyuls = GameObject.FindGameObjectsWithTag("Tuyul");
+                foreach (GameObject tuyul in tuyuls)
+                {
+                    string tuyulName = tuyul.name;
+                    FindObjectOfType<PlayerManager>()?.CheckAndRemoveDefeatedTuyuls(tuyul, tuyulName);
+                }
+            };
         }
         else
         {

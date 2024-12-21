@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Aventurine : Tuyul
 {
+    public int DebuffRoundsLeft = 0;
     private bool canFUA = false;
+
     public Aventurine()
     {
         Name = "Aventurine";
@@ -18,21 +20,45 @@ public class Aventurine : Tuyul
         currentHealth -= damage;
         Debug.Log($"{Name} menerima {damage} damage! Sisa HP: {currentHealth}");
 
+        // Offer to surrender if health is low
+        if (currentHealth > 0 && currentHealth <= maxHealth * 0.3f && !isOfferingMoney)
+        {
+            Debug.Log($"{Name} menyerang pemain terlebih dahulu sebelum menawarkan deal.");
+            StartCoroutine(ExecuteNormalAttack(playerCharacter));
+            
+            // Setelah serangan selesai, mulai tawaran
+            StartCoroutine(OfferDeal(playerCharacter));
+            return false;
+        }
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            return true;
+            return true; // Tuyul is dead
         }
+
         return false;
     }
 
     public override void EnemyAction(Player playerCharacter)
     {
+        if (isOfferingMoney)
+        {
+            Debug.Log($"{Name} sedang menunggu keputusan pemain. Tidak melakukan aksi lain.");
+            return;
+        }
+
         StartCoroutine(ExecuteEnemyAction(playerCharacter));
     }
 
     private IEnumerator ExecuteEnemyAction(Player playerCharacter)
     {
+        if (DebuffRoundsLeft > 0)
+        {
+            DebuffRoundsLeft--;
+            Debug.Log($"{Name} terus memengaruhi critical chance pemain! Ronde tersisa: {DebuffRoundsLeft}");
+        }
+
         if (random.NextDouble() < 0.4)
         {
             int stolenAmount = random.Next(1, 101);

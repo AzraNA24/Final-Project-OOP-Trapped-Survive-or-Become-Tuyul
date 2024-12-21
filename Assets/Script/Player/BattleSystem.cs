@@ -25,6 +25,7 @@ public class BattleSystem : MonoBehaviour
 
     void Start()
     {
+        potionCounter = 0;
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
@@ -242,8 +243,16 @@ public class BattleSystem : MonoBehaviour
             playerCharacter.CurrencyManager.AddMoney(enemyCharacter.Money);
             Debug.Log("Kamu menang!");
             PlayerPrefs.SetInt($"{enemyCharacter.Name}_Defeated", 1);
+            PlayerPrefs.Save();
+
+            if (enemyCharacter != null)
+            {
+                Destroy(enemyCharacter.gameObject);
+                Debug.Log($"{enemyCharacter.Name} telah dihancurkan.");
+            }
+            
             SceneManagerController.Instance.ReturnToLastScene();
-            FindObjectOfType<PlayerManager>()?.RespawnPlayer();
+            FindObjectOfType<PlayerManager>()?.RestoreExplorationStartPosition();
 
         }
         else if (state == BattleState.LOST)
@@ -260,6 +269,7 @@ public class BattleSystem : MonoBehaviour
         if (potionCounter >= maxPotionsPerBattle)
         {
             Debug.Log("Kamu telah menggunakan semua potion yang tersedia untuk pertempuran ini, player kembung!");
+            //matiin animasinya
             return;
         }
 
@@ -269,6 +279,7 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
+            //matiin animasinya
             Debug.Log("Tidak ada potion yang tersedia!");
         }
     }
@@ -277,6 +288,7 @@ public class BattleSystem : MonoBehaviour
     {
         potionCounter++;
         playerCharacter.UsePotion();
+        Debug.Log($"Potion digunakan {potionCounter}/{maxPotionsPerBattle} kali dalam pertempuran ini.");
         yield return new WaitForSeconds(1f);
 
         state = BattleState.TUYUL_TURN;
