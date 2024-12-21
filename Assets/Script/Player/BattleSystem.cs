@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYER_TURN, TUYUL_TURN, WON, LOST }
 public class BattleSystem : MonoBehaviour
@@ -235,22 +236,28 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    void EndBattle()
+    public void EndBattle()
     {
         if (state == BattleState.WON)
         {
-            playerCharacter.CurrencyManager.AddMoney(enemyCharacter.Money);
-            Debug.Log("Kamu menang!");
-            PlayerPrefs.SetInt($"{enemyCharacter.Name}_Defeated", 1);
-            SceneManagerController.Instance.ReturnToLastScene();
-            FindObjectOfType<PlayerManager>()?.RespawnPlayer();
+            // Ambil pesan random dari WinningMessage
+            string randomWinningMessage = WinningMessage.GetRandomWinningMessage();
+            PlayerPrefs.SetString("WinningMessage", randomWinningMessage);
+            PlayerPrefs.Save();
 
+            Debug.Log(randomWinningMessage); // Debug pesan yang disimpan
+            SceneManager.LoadScene("WinningScene"); // Pindah ke WinningScene
         }
         else if (state == BattleState.LOST)
         {
-            Debug.Log("Kamu kalah!");
+            string gameOverMessage = GameOverMessage.GetRandomGameOverMessage(enemyCharacter.Name);
+            PlayerPrefs.SetString("GameOverMessage", gameOverMessage);
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene("GameOver");
         }
     }
+
 
     public void OnPotionButton()
     {
