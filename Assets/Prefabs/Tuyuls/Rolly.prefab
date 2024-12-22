@@ -47,11 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TuyulAnim: {fileID: -3078768879222045738}
-  Name: Rolly; The Reckless Attacker
+  Name: Rolly
   maxHealth: 25
   currentHealth: 0
   AttackPower: 10
   Money: 15
+  isOfferingMoney: 0
+  DebuffRoundsLeft: 0
   partner: {fileID: 0}
 --- !u!212 &218104435964328564
 SpriteRenderer:
@@ -93,7 +95,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
