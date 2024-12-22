@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4814827468454839234}
   - component: {fileID: 164967137656769090}
   - component: {fileID: -6583288349991260759}
+  - component: {fileID: -335596226815587241}
   m_Layer: 0
   m_Name: TB-Player
   m_TagString: Untagged
@@ -122,8 +123,23 @@ MonoBehaviour:
   Name: X
   Health: 100
   currentHealth: 80
-  CurrencyManager: {fileID: 0}
+  CurrencyManager: {fileID: -335596226815587241}
+  bullets: 5
   potions: 1
   criticalChance: 0.3
   healthPotionEffectiveness: 1
+  itemHUD: {fileID: 0}
+--- !u!114 &-335596226815587241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620657125685927805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e141067eb8658f4495c8cf73cc834d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TotalMoney: 100
   itemHUD: {fileID: 0}

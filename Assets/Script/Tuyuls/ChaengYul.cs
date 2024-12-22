@@ -8,6 +8,10 @@ public class ChaengYul : Tuyul
     public Renderer Stone;
     public Animator Heal;
     public Renderer healAttribute;
+    public AudioClip TPBPSound;
+    public AudioClip ThrowSound;
+    public AudioClip GraveSound;
+    public AudioClip CurseSound;
 
     void Start()
     {
@@ -37,6 +41,10 @@ public class ChaengYul : Tuyul
             
             // Setelah serangan selesai, mulai tawaran
             StartCoroutine(OfferDeal(playerCharacter));
+            if (SFXSource != null && AcceptOfferSound != null)
+            {
+                SFXSource.PlayOneShot(AcceptOfferSound);
+            }
             return false; 
         }
 
@@ -76,12 +84,18 @@ public class ChaengYul : Tuyul
             Debug.Log($"{Name} terus memengaruhi critical chance pemain! Ronde tersisa: {DebuffRoundsLeft}");
         }
 
-        if (random.NextDouble() < 0.4)
+        if (random.NextDouble() < 0.3)
         {
             int stolenAmount = random.Next(1, 101);
             if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
             {
                 TuyulAnim.SetTrigger("TPBP");
+
+                if (SFXSource != null && TPBPSound != null)
+                {
+                    SFXSource.PlayOneShot(TPBPSound);
+                }
+
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
                 yield return new WaitForSeconds(1f);
             }
@@ -106,6 +120,11 @@ public class ChaengYul : Tuyul
 
     private IEnumerator UseCursedHop()
     {
+        if (SFXSource != null && CurseSound != null)
+        {
+            SFXSource.PlayOneShot(CurseSound);
+        }
+
         int healAmount = Mathf.RoundToInt(maxHealth * 0.15f); // Heal 15% dari max HP
         currentHealth += healAmount;
         TuyulAnim.SetTrigger("CursedHop");
@@ -118,6 +137,11 @@ public class ChaengYul : Tuyul
 
     public IEnumerator UseBeyondTheGrave(Player playerCharacter)
     {
+        if (SFXSource != null && GraveSound != null)
+        {
+            SFXSource.PlayOneShot(GraveSound);
+        }
+
         TuyulAnim.SetTrigger("Behind");
         int Ultimate = AttackPower * 2;
         yield return new WaitForSeconds(2f);
@@ -144,6 +168,11 @@ public class ChaengYul : Tuyul
     {
         Stone.enabled = true;
         TuyulAnim.SetTrigger("OnThrow");
+
+        if (SFXSource != null && ThrowSound != null)
+        {
+            SFXSource.PlayOneShot(ThrowSound);
+        }
 
         Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
 

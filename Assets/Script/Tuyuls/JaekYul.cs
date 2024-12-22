@@ -5,6 +5,9 @@ public class JaekYul : Tuyul
 {
     public int DebuffRoundsLeft = 0;
     private GameObject currentFormObject;
+    public AudioClip TPBPSound;
+    public AudioClip ThrowSound;
+    public AudioClip TransformSound;
 
     public JaekYul()
     {
@@ -33,6 +36,10 @@ public class JaekYul : Tuyul
             
             // Setelah serangan selesai, mulai tawaran
             StartCoroutine(OfferDeal(playerCharacter));
+            if (SFXSource != null && AcceptOfferSound != null)
+            {
+                SFXSource.PlayOneShot(AcceptOfferSound);
+            }
             return false; 
         }
 
@@ -78,6 +85,12 @@ public class JaekYul : Tuyul
             if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
             {
                 TuyulAnim.SetTrigger("TPBP");
+
+                if (SFXSource != null && TPBPSound != null)
+                {
+                    SFXSource.PlayOneShot(TPBPSound);
+                }
+
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
                 yield return new WaitForSeconds(1f);
             }
@@ -128,6 +141,10 @@ public class JaekYul : Tuyul
         newTuyul.TuyulAnim = animator; // Hubungkan Animator ke Tuyul baru
 
         Debug.Log($"{Name} berubah menjadi {randomTuyulType.Name}!");
+        if (SFXSource != null && TransformSound != null)
+        {
+            SFXSource.PlayOneShot(TransformSound);
+        }
     }
 
     public override void NormalAttack(Player playerCharacter)
@@ -138,6 +155,12 @@ public class JaekYul : Tuyul
     private IEnumerator ExecuteNormalAttack(Player playerCharacter)
     {
         TuyulAnim.SetTrigger("Throw");
+
+        if (SFXSource != null && ThrowSound != null)
+        {
+            SFXSource.PlayOneShot(ThrowSound);
+        }
+
         yield return new WaitForSeconds(1f);
         playerCharacter.TakeDamage(AttackPower);
         Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");

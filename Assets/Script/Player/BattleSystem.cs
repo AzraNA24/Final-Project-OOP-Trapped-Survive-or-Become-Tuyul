@@ -19,6 +19,13 @@ public class BattleSystem : MonoBehaviour
     public Transform playerStation;
     public Transform tuyulStation;
     public Button buttonAnimator;
+    public AudioClip PotionSound;
+    public AudioClip ShortRangeSound;
+    public AudioClip LongRangeClickSound;
+    public AudioClip LongRangeShootSound;
+    public AudioSource SFXSource;
+    public AudioSource backgroundMusic;
+    public AudioClip turnBasedMusic;
     private Player playerCharacter;
     private Tuyul enemyCharacter;
     private System.Random random = new System.Random();
@@ -30,6 +37,13 @@ public class BattleSystem : MonoBehaviour
 
     void Start()
     {
+        if (backgroundMusic != null && turnBasedMusic != null)
+        {
+            backgroundMusic.clip = turnBasedMusic;
+            backgroundMusic.loop = true;
+            backgroundMusic.Play();
+        }
+
         potionCounter = 0;
         state = BattleState.START;
         StartCoroutine(SetupBattle());
@@ -133,6 +147,10 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator ShortRangeAttack()
     {
+        if (ShortRangeSound != null && SFXSource != null)
+        {
+            SFXSource.PlayOneShot(ShortRangeSound);
+        }
 
         yield return new WaitUntil(() => !buttonAnimator.animator.GetCurrentAnimatorStateInfo(0).IsName("ShortRange"));
         int AttackPower = Mathf.CeilToInt(playerCharacter.CurrencyManager.TotalMoney * 0.09f);
@@ -180,6 +198,13 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator LongRangeAttack()
     {
+        if (LongRangeClickSound != null && SFXSource != null)
+        {
+            SFXSource.PlayOneShot(LongRangeClickSound);
+            yield return new WaitForSeconds(0.5f);
+            SFXSource.PlayOneShot(LongRangeShootSound);
+        }
+
         int AttackPower = Mathf.CeilToInt(playerCharacter.CurrencyManager.TotalMoney * 0.15f);
         bool isCritical = random.NextDouble() < playerCharacter.criticalChance + 0.1f;
         int finalAttackPower = isCritical ? AttackPower * 2 : AttackPower;
@@ -311,6 +336,12 @@ public class BattleSystem : MonoBehaviour
         if (playerCharacter.HasPotion())
         {
             StartCoroutine(UsePotion());
+
+            if (PotionSound != null && SFXSource != null)
+            {
+                SFXSource.PlayOneShot(PotionSound);
+            }
+
             dialogueText.text = "Kamu meminum potion!";
             Debug.Log("Kamu meminum potion!");
         }

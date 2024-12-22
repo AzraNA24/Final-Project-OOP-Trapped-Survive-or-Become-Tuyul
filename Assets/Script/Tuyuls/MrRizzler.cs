@@ -4,6 +4,9 @@ using UnityEngine;
 public class MrRizzler : Tuyul
 {
     public int DebuffRoundsLeft = 0;
+    public AudioClip TPBPSound;
+    public AudioClip ThrowSound;
+    public AudioClip SeduceSound;
 
     public MrRizzler()
     {
@@ -27,6 +30,10 @@ public class MrRizzler : Tuyul
 
             // Setelah serangan selesai, mulai tawaran
             StartCoroutine(OfferDeal(playerCharacter));
+            if (SFXSource != null && AcceptOfferSound != null)
+            {
+                SFXSource.PlayOneShot(AcceptOfferSound);
+            }
             return false; 
         }
 
@@ -72,6 +79,12 @@ public class MrRizzler : Tuyul
             if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
             {
                 TuyulAnim.SetTrigger("TPBP");
+
+                if (SFXSource != null && TPBPSound != null)
+                {
+                    SFXSource.PlayOneShot(TPBPSound);
+                }
+
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
                 yield return new WaitForSeconds(1f);
             }
@@ -91,6 +104,11 @@ public class MrRizzler : Tuyul
     
     public IEnumerator UseSeduceYouToDeath(Player playerCharacter)
     {
+        if (SFXSource != null && SeduceSound != null)
+        {
+            SFXSource.PlayOneShot(SeduceSound);
+        }
+
         TuyulAnim.SetTrigger("Seduce");
         yield return new WaitForSeconds(1f);
 
@@ -120,6 +138,12 @@ public class MrRizzler : Tuyul
     private IEnumerator ExecuteNormalAttack(Player playerCharacter)
     {
         TuyulAnim.SetTrigger("Throw");
+
+        if (SFXSource != null && ThrowSound != null)
+        {
+            SFXSource.PlayOneShot(ThrowSound);
+        }
+
         yield return new WaitForSeconds(1f);
         playerCharacter.TakeDamage(AttackPower);
         Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
