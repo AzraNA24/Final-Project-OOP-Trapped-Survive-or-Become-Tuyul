@@ -17,14 +17,34 @@ public class Door : MonoBehaviour
     private static bool isBossRoomTriggered = false; 
     private static bool isGameInitialized = false;
 
+    // private void Awake()
+    // {
+    //     if (!isGameInitialized)
+    //     {
+    //         ResetGameProgress();
+    //         isGameInitialized = true;
+    //     }
+    //     LoadVisitedScenes();
+    // }
     private void Awake()
     {
+        Debug.Log("Awake called: Initializing game state.");
+
         if (!isGameInitialized)
         {
+            Debug.Log("Game not initialized. Resetting progress.");
             ResetGameProgress();
             isGameInitialized = true;
         }
+        else
+        {
+            Debug.Log("Game already initialized.");
+        }
+
         LoadVisitedScenes();
+
+        Debug.Log("Room count after loading: " + roomCount);
+        Debug.Log("Visited scenes: " + string.Join(", ", visitedScenes));
     }
 
     private void OnApplicationQuit()
