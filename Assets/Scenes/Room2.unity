@@ -131,6 +131,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.78
       objectReference: {fileID: 0}
@@ -3766,6 +3778,18 @@ PrefabInstance:
       value: Aventurine
       objectReference: {fileID: 0}
     - target: {fileID: 6802072662043813439, guid: 834adbe544109a949ac87024c07e062a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6802072662043813439, guid: 834adbe544109a949ac87024c07e062a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6802072662043813439, guid: 834adbe544109a949ac87024c07e062a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6802072662043813439, guid: 834adbe544109a949ac87024c07e062a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.19
       objectReference: {fileID: 0}
@@ -3824,19 +3848,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7804752389268769356, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6307
+      value: 0.3671945
       objectReference: {fileID: 0}
     - target: {fileID: 7804752389268769356, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7071168
+      value: 0.3671945
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804752389268769356, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3671945
       objectReference: {fileID: 0}
     - target: {fileID: 7804752389268769356, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.11
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7804752389268769356, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.3
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 7804752389268769356, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5175,12 +5203,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.27
+      value: -7.14
       objectReference: {fileID: 0}
     - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.55
+      value: -2.07
       objectReference: {fileID: 0}
     - target: {fileID: 198829057751944282, guid: f1ee890598ab9104d92f044ce45cf9d7, type: 3}
       propertyPath: m_LocalPosition.z

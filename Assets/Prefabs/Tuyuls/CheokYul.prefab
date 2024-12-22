@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1568877711402906055}
   - component: {fileID: 2426216827640317301}
-  - component: {fileID: 5019045874534833421}
   - component: {fileID: 575108832824356297}
+  - component: {fileID: 4893312756015670168}
   m_Layer: 0
   m_Name: CheokYul
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 499742745184139305}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1432, y: -0.861, z: 0.027172275}
+  m_LocalPosition: {x: 0.1432, y: -0.861, z: -4}
   m_LocalScale: {x: 1.8367946, y: 1.7647494, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee6d5cd5d4a25643a36aa3f73953670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TuyulAnim: {fileID: -3105664473713030559}
+  TuyulAnim: {fileID: 0}
   Name: CheokYul
   maxHealth: 200
   currentHealth: 0
@@ -54,6 +54,27 @@ MonoBehaviour:
   Money: 100
   isOfferingMoney: 0
   DebuffRoundsLeft: 0
+--- !u!95 &575108832824356297
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499742745184139305}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c495a6ed9df49634780dc66c3edf0bcf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &4893312756015670168
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -95,7 +116,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f17ca83ddbe80a44d9f2b197b4cc179d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,24 +127,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &575108832824356297
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499742745184139305}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c495a6ed9df49634780dc66c3edf0bcf, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
