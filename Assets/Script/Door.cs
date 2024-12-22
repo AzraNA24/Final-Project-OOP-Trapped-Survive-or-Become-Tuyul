@@ -65,7 +65,7 @@ public class Door : MonoBehaviour
                 Debug.Log("Switching to Boss Room by default");
                 SwitchToRoom(bossRoom);
             }
-            else if (roomCount >= 4 && Random.value <= 0.4f)
+            else if (roomCount >= 5 && Random.value <= 0.4f)
             {
                 isBossRoomTriggered = true;
                 Debug.Log("Switching to Boss Room by probability.");

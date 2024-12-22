@@ -14,16 +14,12 @@ public class PlayerAttack : MonoBehaviour
     public AudioSource hitSound;
     public static string currentTuyulName;
     // Buat Codex
-    public CodexUI codexUI;
-    public int codexIndex;
+    // public CodexUI codexUI;
+    // public int codexIndex;
     public AudioSource newIntro;
 
     private bool isTriggered = false;
 
-    private void Awake()
-    {
-        codexUI.tuyulCodex[codexIndex].isUnlocked = false;
-    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -35,64 +31,72 @@ public class PlayerAttack : MonoBehaviour
     }
 
     void Attack()
+{
+    float direction = transform.localScale.x;
+    animator.SetFloat("Horizontal", direction);
+    animator.SetTrigger("Attack");
+
+    Collider2D[] hitThing = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, Layer);
+
+    foreach (Collider2D Thing in hitThing)
     {
-        float direction = transform.localScale.x;
-        animator.SetFloat("Horizontal", direction);
-        animator.SetTrigger("Attack");
+        string objectName = Thing.gameObject.name;
+        string objectLayer = LayerMask.LayerToName(Thing.gameObject.layer);
 
-        Collider2D[] hitThing = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, Layer);
+        Debug.Log($"Detected: {Thing.gameObject.name}");
 
-        foreach (Collider2D Thing in hitThing)
+        if (Thing.isTrigger)
         {
-            string objectName = Thing.gameObject.name;
-            string objectLayer = LayerMask.LayerToName(Thing.gameObject.layer);
+            Debug.Log($"Trigger detected: {Thing.gameObject.name}");
+        }
 
-            Debug.Log($"Detected: {Thing.gameObject.name}");
+        if (objectLayer == "Tuyul")
+        {
+            currentTuyulName = Thing.gameObject.name;
+            isTriggered = true;
 
-            if (Thing.isTrigger)
-            {
-                Debug.Log($"Trigger detected: {Thing.gameObject.name}");
-            }
+            // if (codexUI == null)
+            // {
+            //     return;
+            // }
+            Debug.Log($"Tuyul detected: {currentTuyulName}! Switching to TurnBased scene after audio...");
+            StartCoroutine(PlayAudioAndSwitchScene());
+            return;
+        }
 
-            if (objectLayer == "Tuyul")
-            {
-                currentTuyulName = Thing.gameObject.name;
-                isTriggered = true;
-                CodexUI codexUI = CodexUI.Instance;
-                int index = codexUI.GetTuyulIndexByName(currentTuyulName);
-                if (index != -1)
-                {
-                    codexIndex = index;
-                    codexUI.tuyulCodex[codexIndex].isUnlocked = true;
-                    Debug.Log(codexUI.tuyulCodex[codexIndex].Name + " has been unlocked!");
-                }
-                else
-                {
-                    Debug.Log("Tuyul tidak ditemukan dalam codex!");
-                }
-
-                Debug.Log($"Tuyul detected: {currentTuyulName}! Switching to TurnBased scene after audio...");
-                StartCoroutine(PlayAudioAndSwitchScene());
-                return;
-            }
-
-            LootBox lootBox = Thing.GetComponent<LootBox>();
-            if (lootBox != null)
-            {
-                lootBox.GenerateLoot();
-            }
+        LootBox lootBox = Thing.GetComponent<LootBox>();
+        if (lootBox != null)
+        {
+            lootBox.GenerateLoot();
         }
     }
+}
+
+
     IEnumerator PlayAudioAndSwitchScene()
     {
-        if (newIntro != null && !codexUI.tuyulCodex[codexIndex].isUnlocked)
-        {
-            newIntro.Play();
+        // if (newIntro != null && !codexUI.tuyulCodex[codexIndex].isUnlocked)
+        // {
+        //     int index = codexUI.GetTuyulIndexByName(currentTuyulName);
+        //     if (index != -1)
+        //     {
+        //         codexIndex = index;
+                newIntro.Play();
+        //         codexUI.tuyulCodex[codexIndex].isUnlocked = true;
+        //         Debug.Log(codexUI.tuyulCodex[codexIndex].Name + " has been unlocked!");            
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("Tuyul tidak ditemukan dalam codex!");
+        //     }
+            
             yield return new WaitForSeconds(newIntro.clip.length);
-        }
+        // }
 
         // Pindah ke scene setelah audio selesai
         SceneManagerController.Instance.SwitchScene("TurnBased", SceneManagerController.GameMode.TurnBased);
+
+        yield break; // ini sementara biar ga error
     }
 
     private void OnDrawGizmosSelected()
