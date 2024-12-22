@@ -251,7 +251,7 @@ PrefabInstance:
     - target: {fileID: -205435670967370255, guid: 834adbe544109a949ac87024c07e062a, type: 3}
       propertyPath: codexUI
       value: 
-      objectReference: {fileID: 2535881654416399958}
+      objectReference: {fileID: 0}
     - target: {fileID: -205435670967370255, guid: 834adbe544109a949ac87024c07e062a, type: 3}
       propertyPath: newIntro
       value: 
@@ -5972,17 +5972,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a5f8bc35369268439bfe48d7eb37206, type: 3}
---- !u!114 &2535881654416399958 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6308694778227197091, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}
-  m_PrefabInstance: {fileID: 3660033937166940651}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fed2613be3fa544ba70ac79da9f4570, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &2535881654416399959 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 6825594739713142233, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}
@@ -5999,6 +5988,18 @@ PrefabInstance:
     - target: {fileID: 461134819259523331, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 547312316422044234, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}
+      propertyPath: targetImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 547312316422044234, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}
+      propertyPath: itemQuantityText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265882878546315156, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}
+      propertyPath: inventoryUI
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3264366800946123500, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}
       propertyPath: m_Pivot.x
@@ -6080,8 +6081,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6308694778227197091, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}
+      propertyPath: tuyulCodex.Array.data[0].Name
+      value: Aventurine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6329378871551681618, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 364ca8047a971714cb09075d47c8ccd1, type: 3}

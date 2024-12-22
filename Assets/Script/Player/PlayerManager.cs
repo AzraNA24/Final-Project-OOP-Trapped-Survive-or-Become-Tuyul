@@ -6,16 +6,31 @@ public class PlayerManager : MonoBehaviour
 {
     public enum PlayerMode { Exploration, TurnBased }
     public PlayerMode currentMode;
-    
+
     // Referensi prefab
     public GameObject explorationPlayerPrefab;
     public GameObject turnBasedPlayerPrefab;
     public Vector3 respawnPosition;
     public CinemachineVirtualCamera Camera;
-    public InventoryController inventory;
-    public Vector2 explorationStartPosition; 
+    public Vector2 explorationStartPosition;
 
     private GameObject activePlayer;
+
+    private static PlayerManager instance;
+
+    void Awake()
+    {
+        // Ensure only one instance of PlayerManager exists
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -72,7 +87,6 @@ public class PlayerManager : MonoBehaviour
         float z = PlayerPrefs.GetFloat("PlayerLastPosZ", transform.position.z);
         activePlayer.transform.position = new Vector3(x, y, z);
     }
-  
     public void SavePlayerPosition(Vector3 position)
     {
         PlayerPrefs.SetFloat("PlayerLastPosX", position.x);
@@ -106,5 +120,4 @@ public class PlayerManager : MonoBehaviour
             Debug.Log($"{tuyulName} sudah dikalahkan dan dihapus dari scene eksplorasi.");
         }
     }
-
 }

@@ -3,9 +3,21 @@ using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
 {
+    public static CurrencyManager Instance;
     public int TotalMoney = 100;
     public ItemHUD itemHUD;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public void AddMoney(int amount)
     {
         if (amount > 0)
