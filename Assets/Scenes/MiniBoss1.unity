@@ -6349,11 +6349,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2426216827640317301, guid: a91ceda698c8f0942902d8e29dd63b97, type: 3}
+      propertyPath: TuyulAnim
+      value: 
+      objectReference: {fileID: 1428597353}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a91ceda698c8f0942902d8e29dd63b97, type: 3}
+--- !u!95 &1428597353 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 575108832824356297, guid: a91ceda698c8f0942902d8e29dd63b97, type: 3}
+  m_PrefabInstance: {fileID: 1428597352}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1469523470
 GameObject:
   m_ObjectHideFlags: 3
@@ -6918,11 +6927,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7804752389268769356, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3671945
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7804752389268769356, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.36719447
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7804752389268769356, guid: b646cc674ed713c4bad8532357d36cd5, type: 3}
       propertyPath: m_LocalScale.z
