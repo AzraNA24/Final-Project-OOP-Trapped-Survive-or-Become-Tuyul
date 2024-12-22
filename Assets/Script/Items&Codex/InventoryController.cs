@@ -34,14 +34,6 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        if (inventoryUI != null)
-        {
-            inventoryUI.InitializeInventoryUI(inventorySize);
-        }
-    }
-
     private void Update()
     {
         // Membuka/Tutup Inventory

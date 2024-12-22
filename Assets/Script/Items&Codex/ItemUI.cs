@@ -1,130 +1,91 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-namespace Inventory.UI
+public class ItemUI : MonoBehaviour
 {
-    public class ItemUI : MonoBehaviour
+    [System.Serializable]
+    public class InventoryItemData
     {
-        [SerializeField]
-        private InventoryItem itemPrefab;
+        public string Name;
+        public string Description;
+        public int Quantity;
+    }
 
-        [SerializeField]
-        private RectTransform contentPanel;
+    public InventoryItemData[] items;
 
-        [SerializeField]
-        private ItemDesc itemDescription;
-        [SerializeField]
-        private ItemActionPanel actionPanel;
+    public TextMeshProUGUI itemTitleText;
+    public TextMeshProUGUI itemDescriptionText;
+    public TextMeshProUGUI itemQuantityText;
+    public Image targetImage;
+    public Sprite[] itemImage;
 
-        List<InventoryItem> listOfUIItems = new List<InventoryItem>();
+    public static ItemUI Instance { get; private set; }
 
-        private int currentlyDraggedItemIndex = -1;
+    private void Awake()
+    {
+        Instance = this;
 
-        public event Action<int> OnDescriptionRequested,
-                OnItemActionRequested,
-                OnStartDragging;
-
-        public event Action<int, int> OnSwapItems;
-
-        private void Awake()
+        // Initialize the items array here to avoid NullReferenceException
+        items = new InventoryItemData[]
         {
-            Hide();
-            itemDescription.ResetDescription();
-        }
-
-        public void InitializeInventoryUI(int inventorysize)
-        {
-            for (int i = 0; i < inventorysize; i++)
+            new InventoryItemData
             {
-                InventoryItem uiItem =
-                    Instantiate(itemPrefab, Vector2.zero, Quaternion.identity);
-                uiItem.transform.SetParent(contentPanel);
-                listOfUIItems.Add(uiItem);
-                uiItem.OnRightMouseBtnClick += HandleShowItemActions;
-            }
-        }
-
-        internal void ResetAllItems()
-        {
-            foreach (var item in listOfUIItems)
+                Name = "Money Bag",
+                Description = $"Trusty money bag to bagged away your stolen money. Can be used as a weapon too. Inside, there's money: {CurrencyManager.Instance?.TotalMoney ?? 0}",
+                Quantity = 1
+            },
+            new InventoryItemData
             {
-                item.ResetData();
-                item.Deselect();
-            }
-        }
-
-        internal void UpdateDescription(int itemIndex, Sprite itemImage, string name, string description)
-        {
-            itemDescription.SetDescription(itemImage, name, description);
-            DeselectAllItems();
-            listOfUIItems[itemIndex].Select();
-        }
-
-        public void UpdateData(int itemIndex,
-            Sprite itemImage, int itemQuantity)
-        {
-            if (listOfUIItems.Count > itemIndex)
+                Name = "Riffle",
+                Quantity = 1,
+                Description = "When money can't get you out, a trusty gun can always be a reliable friend."
+            },
+            new InventoryItemData
             {
-                listOfUIItems[itemIndex].SetData(itemImage, itemQuantity);
-            }
-        }
-
-        private void HandleShowItemActions(InventoryItem inventoryItemUI)
-        {
-            int index = listOfUIItems.IndexOf(inventoryItemUI);
-            if (index == -1)
+                Name = "Bullets",
+                Quantity = Player.Instance?.bullets ?? 0,
+                Description = "Just make sure the cops never know about this."
+            },
+            new InventoryItemData
             {
-                return;
-            }
-            OnItemActionRequested?.Invoke(index);
-        }
+                Name = "Health Potion",
+                Quantity = Player.Instance?.potions ?? 0,
+                Description = "Highly recommended for neck pain."
+            },
+        };
+    }
 
-        private void HandleItemSelection(InventoryItem inventoryItemUI)
-        {
-            int index = listOfUIItems.IndexOf(inventoryItemUI);
-            if (index == -1)
-                return;
-            OnDescriptionRequested?.Invoke(index);
-        }
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
 
-        public void Show()
-        {
-            gameObject.SetActive(true);
-            ResetSelection();
-        }
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 
-        public void ResetSelection()
+    public void SetImageByIndex(int index)
+    {
+        if (index >= 0 && index < itemImage.Length)
         {
-            itemDescription.ResetDescription();
-            DeselectAllItems();
+            targetImage.sprite = itemImage[index];
         }
+        else
+        {
+            Debug.LogError("Invalid image index!");
+        }
+    }
 
-        public void AddAction(string actionName, Action performAction)
-        {
-            actionPanel.AddButon(actionName, performAction);
-        }
-
-        public void ShowItemAction(int itemIndex)
-        {
-            actionPanel.Toggle(true);
-            actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
-        }
-
-        private void DeselectAllItems()
-        {
-            foreach (InventoryItem item in listOfUIItems)
-            {
-                item.Deselect();
-            }
-            actionPanel.Toggle(false);
-        }
-
-        public void Hide()
-        {
-            actionPanel.Toggle(false);
-            gameObject.SetActive(false);
-        }
+    public void DisplayItemInfo(int index)
+    {
+        SetImageByIndex(index);
+        InventoryItemData item = items[index];
+        itemTitleText.text = item.Name;
+        itemDescriptionText.text = item.Description;
+        itemQuantityText.text = item.Quantity.ToString();
     }
 }

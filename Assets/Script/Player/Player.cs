@@ -2,15 +2,27 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
     public string Name;
     public int Health = 100;
     public int currentHealth;
     public CurrencyManager CurrencyManager;
-    private int bullets = 5;
+    public int bullets = 5;
     public int potions = 1;
     public float criticalChance = 0.3f; // Default 30%         eh ini blm ada implementasinya yak di serangan re: udahh
     public float healthPotionEffectiveness = 1.0f; // Default 100%
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public bool TakeDamage(int damage)
     {
         currentHealth -= damage;
