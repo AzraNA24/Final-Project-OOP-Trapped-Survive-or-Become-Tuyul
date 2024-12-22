@@ -7,6 +7,9 @@ public class RollyPolly : Tuyul    //jujur masih blm terlalu ngerti yang sepasan
     public RollyPolly partner; // Referensi ke pasangan
 
     public bool HasPartnerAlive => partner != null && partner.currentHealth > 0;
+    public AudioClip TPBPSound;
+    public AudioClip ThrowSound;
+    public AudioClip TeamworkSound;
 
     public override bool TakeDamage(int damage, Player playerCharacter)
     {
@@ -21,6 +24,10 @@ public class RollyPolly : Tuyul    //jujur masih blm terlalu ngerti yang sepasan
 
             // Setelah serangan selesai, mulai tawaran
             StartCoroutine(OfferDeal(playerCharacter));
+            if (SFXSource != null && AcceptOfferSound != null)
+            {
+                SFXSource.PlayOneShot(AcceptOfferSound);
+            }
             return false; 
         }
 
@@ -60,12 +67,18 @@ public class RollyPolly : Tuyul    //jujur masih blm terlalu ngerti yang sepasan
             Debug.Log($"{Name} terus memengaruhi critical chance pemain! Ronde tersisa: {DebuffRoundsLeft}");
         }
 
-        if (random.NextDouble() < 0.4)
+        if (random.NextDouble() < 0.3)
         {
             int stolenAmount = random.Next(1, 101);
             if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
             {
                 TuyulAnim.SetTrigger("TPBP");
+
+                if (SFXSource != null && TPBPSound != null)
+                {
+                    SFXSource.PlayOneShot(TPBPSound);
+                }
+
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
                 yield return new WaitForSeconds(1f);
             }
@@ -91,6 +104,12 @@ public class RollyPolly : Tuyul    //jujur masih blm terlalu ngerti yang sepasan
     private IEnumerator ExecuteNormalAttack(Player playerCharacter)
     {
         TuyulAnim.SetTrigger("Throw");
+
+        if (SFXSource != null && ThrowSound != null)
+        {
+            SFXSource.PlayOneShot(ThrowSound);
+        }
+        
         yield return new WaitForSeconds(1f);
         playerCharacter.TakeDamage(AttackPower);
         Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
@@ -98,6 +117,11 @@ public class RollyPolly : Tuyul    //jujur masih blm terlalu ngerti yang sepasan
 
     public virtual IEnumerator UseTeamworkSkill(Player playerCharacter)
     {
+        if (SFXSource != null && TeamworkSound != null)
+        {
+            SFXSource.PlayOneShot(TeamworkSound);
+        }
+
         yield return new WaitForSeconds(1f);
         
         if (HasPartnerAlive)   

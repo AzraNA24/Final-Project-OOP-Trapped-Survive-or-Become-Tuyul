@@ -5,6 +5,9 @@ public class Aventurine : Tuyul
 {
     public int DebuffRoundsLeft = 0;
     private bool canFUA = false;
+    public AudioClip TPBPSound;
+    public AudioClip ThrowSound;
+    public AudioClip GatsbySound;
 
     public Aventurine()
     {
@@ -28,6 +31,10 @@ public class Aventurine : Tuyul
             
             // Setelah serangan selesai, mulai tawaran
             StartCoroutine(OfferDeal(playerCharacter));
+            if (SFXSource != null && AcceptOfferSound != null)
+            {
+                SFXSource.PlayOneShot(AcceptOfferSound);
+            }
             return false;
         }
 
@@ -65,6 +72,12 @@ public class Aventurine : Tuyul
             if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
             {
                 TuyulAnim.SetTrigger("TPBP");
+                
+                if (SFXSource != null && TPBPSound != null)
+                {
+                    SFXSource.PlayOneShot(TPBPSound);
+                }
+
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
                 yield return new WaitForSeconds(1f);
             }
@@ -82,6 +95,11 @@ public class Aventurine : Tuyul
 
     public IEnumerator UseTheGreatGatsby(Player playerCharacter)
     {
+        if (SFXSource != null && GatsbySound != null)
+        {
+            SFXSource.PlayOneShot(GatsbySound);
+        }
+
         TuyulAnim.SetTrigger("Ulti");
         int Ultimate = AttackPower + AttackPower / 2;
         yield return new WaitForSeconds(1f);
@@ -100,8 +118,13 @@ public class Aventurine : Tuyul
     {
         playerCharacter.TakeDamage(AttackPower);
         TuyulAnim.SetTrigger("Throws");
-        Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
 
+        if (SFXSource != null && ThrowSound != null)
+        {
+            SFXSource.PlayOneShot(ThrowSound);
+        }
+
+        Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");
         yield return new WaitForSeconds(1f); // Jeda untuk animasi
     }
 

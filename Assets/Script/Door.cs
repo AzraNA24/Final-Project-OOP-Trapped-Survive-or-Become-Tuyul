@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Door : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class Door : MonoBehaviour
     private static HashSet<string> visitedScenes = new HashSet<string>();
     private static bool isBossRoomTriggered = false; 
     private static bool isGameInitialized = false;
+
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip enterRoomSound;
 
     private void Awake()
     {
@@ -71,7 +76,6 @@ public class Door : MonoBehaviour
         }
     }
 
-
     private bool ShouldEnterMiniBossRoom()
     {
         // 30% chance after 3 rooms
@@ -86,11 +90,25 @@ public class Door : MonoBehaviour
 
     private void SwitchToRoom(string roomName)
     {
+        if (audioSource != null && enterRoomSound != null)
+        {
+            StartCoroutine(WaitForSoundAndSwitch(roomName, enterRoomSound.length));
+        }
+
         visitedScenes.Add(roomName);
         SaveVisitedScenes();
+    }
+
+    private IEnumerator WaitForSoundAndSwitch(string roomName, float delay)
+    {
+        if (audioSource != null && enterRoomSound != null)
+        {
+            audioSource.PlayOneShot(enterRoomSound);
+            yield return new WaitForSeconds(0.5f); 
+        }
+
         SceneManagerController.Instance.SwitchScene(roomName, SceneManagerController.GameMode.Exploration);
     }
-    
 
     private string GetRandomRoom(List<string> roomList)
     {
@@ -119,7 +137,6 @@ public class Door : MonoBehaviour
         return fallbackRoom;
     }
 
-
     private void SaveVisitedScenes()
     {
         PlayerPrefs.SetString("VisitedScenes", string.Join(",", visitedScenes));
@@ -137,6 +154,7 @@ public class Door : MonoBehaviour
             visitedScenes = new HashSet<string>(savedData.Split(','));
         }
     }
+
     private void ResetGameProgress()
     {
         roomCount = 0;

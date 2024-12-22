@@ -6,6 +6,11 @@ public class CheokYul : Tuyul
     public int DebuffRoundsLeft = 0;
     private bool isFlying = false; // Status untuk passive skill
     private int poisonDuration = 3; // Durasi poison effect (3 giliran)
+    public AudioClip TPBPSound;
+    public AudioClip ThrowSound;
+    public AudioClip FlyingSound;
+    public AudioClip DemocracySound;
+    public AudioClip MonsterSound;
 
     public CheokYul()
     {
@@ -29,6 +34,10 @@ public class CheokYul : Tuyul
             
             // Setelah serangan selesai, mulai tawaran
             StartCoroutine(OfferDeal(playerCharacter));
+            if (SFXSource != null && AcceptOfferSound != null)
+            {
+                SFXSource.PlayOneShot(AcceptOfferSound);
+            }
             return false; 
         }
 
@@ -68,12 +77,18 @@ public class CheokYul : Tuyul
             Debug.Log($"{Name} terus memengaruhi critical chance pemain! Ronde tersisa: {DebuffRoundsLeft}");
         }
 
-        if (random.NextDouble() < 0.4)
+        if (random.NextDouble() < 0.3)
         {
             int stolenAmount = random.Next(1, 101);
             if (playerCharacter.CurrencyManager.DeductMoney(stolenAmount))
             {
                 TuyulAnim.SetTrigger("TPBP");
+
+                if (SFXSource != null && TPBPSound != null)
+                {
+                    SFXSource.PlayOneShot(TPBPSound);
+                }
+
                 Debug.Log($"{Name} menggunakan jurus rahasia: 'Tangan Panjang, Badan Pendek'. Kamu kehilangan uang sebesar {stolenAmount}!");
                 yield return new WaitForSeconds(1f);
             }
@@ -82,6 +97,11 @@ public class CheokYul : Tuyul
         // Passive Talent: The Flying Horror
         if (currentHealth <= maxHealth / 2 && !isFlying)
         {
+            if (SFXSource != null && FlyingSound != null)
+            {
+                SFXSource.PlayOneShot(FlyingSound);
+            }
+
             isFlying = true;
             // tambahin kode buat animasi dia terbang
 
@@ -106,6 +126,11 @@ public class CheokYul : Tuyul
 
     public IEnumerator UseTheDemocracy(Player playerCharacter)
     {
+        if (SFXSource != null && DemocracySound != null)
+        {
+            SFXSource.PlayOneShot(DemocracySound);
+        }
+
         yield return new WaitForSeconds(1f);
 
         int roachesCount = Random.Range(2, 9); // Memanggil 2-8 kecoak kecil
@@ -122,6 +147,11 @@ public class CheokYul : Tuyul
 
     public IEnumerator UsePoison(Player playerCharacter)
     {
+        if (SFXSource != null && DemocracySound != null)
+        {
+            SFXSource.PlayOneShot(MonsterSound);
+        }
+
         yield return new WaitForSeconds(1f);
         TuyulAnim.SetTrigger("Monster");
         Debug.Log($"{Name} menggunakan jurus 'Monster Lurks Beneath The Shadow of The Dawn'! Pemain terkena efek poison selama {poisonDuration} giliran.");
@@ -147,6 +177,12 @@ public class CheokYul : Tuyul
     private IEnumerator ExecuteNormalAttack(Player playerCharacter)
     {
         TuyulAnim.SetTrigger("Throw");
+
+        if (SFXSource != null && ThrowSound != null)
+        {
+            SFXSource.PlayOneShot(ThrowSound);
+        }
+        
         yield return new WaitForSeconds(1f);
         playerCharacter.TakeDamage(AttackPower);
         Debug.Log($"{Name} mengeluarkan jurus 'Ketimpuk Batu' dan memberikan {AttackPower} damage! Sisa HP: {playerCharacter.currentHealth}");

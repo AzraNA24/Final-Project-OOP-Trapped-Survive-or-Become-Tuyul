@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7804752389268769356}
   - component: {fileID: 3432669930022053542}
   - component: {fileID: 678608100568114932}
-  - component: {fileID: 8231453855763136786}
+  - component: {fileID: -3208754839247703357}
   m_Layer: 0
   m_Name: RollyPolly
   m_TagString: Untagged
@@ -52,9 +52,14 @@ MonoBehaviour:
   currentHealth: 0
   AttackPower: 15
   Money: 30
+  AcceptOfferSound: {fileID: 8300000, guid: d371e03d7a961e34ba46a336eb5f772f, type: 3}
+  SFXSource: {fileID: -3208754839247703357}
   isOfferingMoney: 0
   DebuffRoundsLeft: 0
   partner: {fileID: 0}
+  TPBPSound: {fileID: 8300000, guid: 0b46df3bde01dfb4e8f8873555d4072c, type: 3}
+  ThrowSound: {fileID: 8300000, guid: 97c6d28cd4b1ced478dd661c074e51b8, type: 3}
+  TeamworkSound: {fileID: 8300000, guid: 15a71721cddf4d6408c49ac7e10b2bcd, type: 3}
 --- !u!212 &678608100568114932
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -110,21 +115,99 @@ SpriteRenderer:
 --- !u!95 &8231453855763136786
 Animator:
   serializedVersion: 5
+--- !u!82 &-3208754839247703357
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2230084780681459113}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7e8b25de361ee0b41929a5b06f00a00c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

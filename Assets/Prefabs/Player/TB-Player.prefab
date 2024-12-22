@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4814827468454839234}
   - component: {fileID: 164967137656769090}
   - component: {fileID: -6583288349991260759}
-  - component: {fileID: 2242072239959834519}
+  - component: {fileID: -335596226815587241}
   m_Layer: 0
   m_Name: TB-Player
   m_TagString: Untagged
@@ -123,13 +123,13 @@ MonoBehaviour:
   Name: X
   Health: 100
   currentHealth: 80
-  CurrencyManager: {fileID: 2242072239959834519}
+  CurrencyManager: {fileID: -335596226815587241}
   bullets: 5
   potions: 1
   criticalChance: 0.3
   healthPotionEffectiveness: 1
   itemHUD: {fileID: 0}
---- !u!114 &2242072239959834519
+--- !u!114 &-335596226815587241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

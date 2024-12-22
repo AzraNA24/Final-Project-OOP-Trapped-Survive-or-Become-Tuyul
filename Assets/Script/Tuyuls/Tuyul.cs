@@ -10,6 +10,8 @@ public class Tuyul : MonoBehaviour
     public int currentHealth;
     public int AttackPower;
     public int Money;
+    public AudioClip AcceptOfferSound;
+    public AudioSource SFXSource;
     public bool isOfferingMoney = false;
     public System.Random random = new System.Random();
     public TuyulType Type { get; set; }
@@ -73,6 +75,7 @@ public class Tuyul : MonoBehaviour
             {
                 Debug.Log($"{Name} melarikan diri setelah memberikan uang sebesar {Money}!");
                 playerCharacter.CurrencyManager.AddMoney(Money);
+            
                 currentHealth = 0; // Tuyul mati
                 decisionMade = true;
 
