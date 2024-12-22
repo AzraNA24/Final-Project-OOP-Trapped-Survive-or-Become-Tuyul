@@ -10,12 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7804752389268769356}
   - component: {fileID: 3432669930022053542}
-<<<<<<< HEAD
-  - component: {fileID: 3793360094695819811}
-  - component: {fileID: 8716193586021305422}
-=======
   - component: {fileID: 678608100568114932}
->>>>>>> 9dcaf9ccd86760680c6b3d0f508329480470829e
   m_Layer: 0
   m_Name: RollyPolly
   m_TagString: Untagged
@@ -59,11 +54,7 @@ MonoBehaviour:
   isOfferingMoney: 0
   DebuffRoundsLeft: 0
   partner: {fileID: 0}
-<<<<<<< HEAD
---- !u!212 &3793360094695819811
-=======
 --- !u!212 &678608100568114932
->>>>>>> 9dcaf9ccd86760680c6b3d0f508329480470829e
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,48 +95,14 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-<<<<<<< HEAD
-  m_Sprite: {fileID: 21300000, guid: b576c37f8fca5c44b841ecd86acc9f8f, type: 3}
-=======
   m_Sprite: {fileID: 0}
->>>>>>> 9dcaf9ccd86760680c6b3d0f508329480470829e
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-<<<<<<< HEAD
-  m_Size: {x: 6, y: 8}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!95 &8716193586021305422
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2230084780681459113}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7e8b25de361ee0b41929a5b06f00a00c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
-=======
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
->>>>>>> 9dcaf9ccd86760680c6b3d0f508329480470829e
