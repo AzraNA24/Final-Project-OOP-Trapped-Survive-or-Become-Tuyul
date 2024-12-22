@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public int potions = 1;
     public float criticalChance = 0.3f; // Default 30%         eh ini blm ada implementasinya yak di serangan re: udahh
     public float healthPotionEffectiveness = 1.0f; // Default 100%
+    public ItemHUD itemHUD;
 
     private void Awake()
     {
@@ -69,6 +70,7 @@ public class Player : MonoBehaviour
             potions--;
             Heal(20);
             Debug.Log($"Potion digunakan. Sisa potion: {potions}. Kesehatan saat ini: {currentHealth}");
+            itemHUD.UpdatePotionsUI(); // Perbarui UI untuk potions
             return true;
         }
         else
@@ -82,5 +84,6 @@ public class Player : MonoBehaviour
     {
         potions += amount;
         Debug.Log($"Potion ditambahkan sejumlah {amount}. Total potion: {potions}");
+        itemHUD.UpdatePotionsUI(); // Perbarui UI untuk potions
     }
 }

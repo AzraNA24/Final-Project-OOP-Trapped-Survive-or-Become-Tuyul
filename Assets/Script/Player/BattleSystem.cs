@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +24,9 @@ public class BattleSystem : MonoBehaviour
     private System.Random random = new System.Random();
     public int maxPotionsPerBattle = 5;
     private int potionCounter;
+    public BattleHUD playerHUD;
+    public BattleHUD tuyulHUD;
+    public TextMeshProUGUI dialogueText;
 
     void Start()
     {
@@ -68,6 +72,11 @@ public class BattleSystem : MonoBehaviour
 
         GameObject enemyGO = Instantiate(selectedTuyulPrefab, tuyulStation);
         enemyCharacter = enemyGO.GetComponent<Tuyul>();
+
+        playerHUD.SetHUDPlayer(playerCharacter);
+        tuyulHUD.SetHUDTuyul(enemyCharacter);
+
+
         if (enemyCharacter.TuyulAnim != null)
         {
             enemyCharacter.TuyulAnim.SetBool("TurnBased", true);
@@ -77,8 +86,9 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("Animator pada enemyCharacter tidak ditemukan!");
         }
 
+        dialogueText.text = $"Pertarungan dimulai! {enemyCharacter.Name} muncul!";
         Debug.Log($"Pertarungan dimulai! {enemyCharacter.Name} muncul!");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
 
         state = BattleState.PLAYER_TURN;
         PlayerTurn();
@@ -106,7 +116,8 @@ public class BattleSystem : MonoBehaviour
             mrRizzler.RemoveDebuff(playerCharacter);
         }
 
-        Debug.Log("Pilih tindakan: Serang, Jarak Jauh, atau Potion");
+        dialogueText.text = "Pilih tindakan: Serang Jarak Pendek, Jarak Jauh, atau Potion";
+        Debug.Log("Pilih tindakan: Serang Jarak Pendek, Jarak Jauh, atau Potion");
     }
 
     public void OnShortRangeAttackButton()
@@ -114,6 +125,8 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYER_TURN)
             return;
         StartCoroutine(ShortRangeAttack());
+
+        dialogueText.text = "Penyerangan selesai dilakukan";
         Debug.Log("Penyerangan selesai dilakukan");
 
     }
@@ -128,10 +141,12 @@ public class BattleSystem : MonoBehaviour
 
         if (isCritical)
         {
+            dialogueText.text = "Serangan Critical! Kamu menyerang musuh dengan serangan jarak dekat sebesar " + finalAttackPower;
             Debug.Log($"Serangan Critical! Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
         }
         else
         {
+            dialogueText.text = "Kamu menyerang musuh dengan serangan jarak dekat sebesar " + finalAttackPower;
             Debug.Log($"Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
         }
 
@@ -171,12 +186,14 @@ public class BattleSystem : MonoBehaviour
 
         if (!playerCharacter.HasBullets())
         {
+            dialogueText.text = "Peluru tidak cukup untuk serangan jarak jauh!";
             Debug.Log("Peluru tidak cukup untuk serangan jarak jauh!");
             yield break;
         }
 
         if (random.NextDouble() < 0.3)
         {
+            dialogueText.text = "You Missed!";
             Debug.Log($"You Missed!");
             state = BattleState.TUYUL_TURN;
             StartCoroutine(EnemyTurn());
@@ -186,10 +203,12 @@ public class BattleSystem : MonoBehaviour
 
             if (isCritical)
             {
+                dialogueText.text = "Serangan Critical! Kamu menyerang musuh dengan serangan jarak dekat sebesar " + finalAttackPower;
                 Debug.Log($"Serangan Critical! Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
             }
             else
             {
+                dialogueText.text = "Kamu menyerang musuh dengan serangan jarak dekat sebesar " + finalAttackPower;
                 Debug.Log($"Kamu menyerang musuh dengan serangan jarak dekat sebesar {finalAttackPower}!");
             }
             bool isDead = enemyCharacter.TakeDamage(finalAttackPower, playerCharacter);
@@ -216,6 +235,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+        dialogueText.text = $"{enemyCharacter.Name} sedang menyerang!";
         Debug.Log($"{enemyCharacter.Name} sedang menyerang!");
 
         yield return new WaitForSeconds(1f);
@@ -250,6 +270,7 @@ public class BattleSystem : MonoBehaviour
             if (enemyCharacter != null)
             {
                 Destroy(enemyCharacter.gameObject);
+                dialogueText.text = $"{enemyCharacter.Name} telah dihancurkan.";
                 Debug.Log($"{enemyCharacter.Name} telah dihancurkan.");
             }
             
@@ -281,6 +302,7 @@ public class BattleSystem : MonoBehaviour
 
         if (potionCounter >= maxPotionsPerBattle)
         {
+            dialogueText.text = "Kamu telah menggunakan semua potion yang tersedia untuk pertempuran ini, player kembung!";
             Debug.Log("Kamu telah menggunakan semua potion yang tersedia untuk pertempuran ini, player kembung!");
             //matiin animasinya
             return;
@@ -289,10 +311,13 @@ public class BattleSystem : MonoBehaviour
         if (playerCharacter.HasPotion())
         {
             StartCoroutine(UsePotion());
+            dialogueText.text = "Kamu meminum potion!";
+            Debug.Log("Kamu meminum potion!");
         }
         else
         {
             //matiin animasinya
+            dialogueText.text = "Tidak ada potion yang tersedia!";
             Debug.Log("Tidak ada potion yang tersedia!");
         }
     }
@@ -301,6 +326,8 @@ public class BattleSystem : MonoBehaviour
     {
         potionCounter++;
         playerCharacter.UsePotion();
+
+        dialogueText.text = $"Potion digunakan {potionCounter}/{maxPotionsPerBattle} kali dalam pertempuran ini.";
         Debug.Log($"Potion digunakan {potionCounter}/{maxPotionsPerBattle} kali dalam pertempuran ini.");
         yield return new WaitForSeconds(1f);
 

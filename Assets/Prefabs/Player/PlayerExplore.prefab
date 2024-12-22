@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -947484721, guid: 029da45a697970846b5ff1f967e469da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -111,8 +111,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 12288
   hitSound: {fileID: 8871927289165666784}
-  codexUI: {fileID: 2295810665483235736, guid: c436328cd3d8ce44585a204e4c489d96, type: 3}
-  codexIndex: 0
   newIntro: {fileID: 6755940145543337355}
 --- !u!114 &4750830077818833568
 MonoBehaviour:

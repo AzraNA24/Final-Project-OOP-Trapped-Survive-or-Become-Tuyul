@@ -47,11 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TuyulAnim: {fileID: -3105664473713030559}
-  Name: CheokYul; Impish Who Studies under The Ancient Beast [Kecoak Terbang]
+  Name: CheokYul
   maxHealth: 200
   currentHealth: 0
   AttackPower: 15
   Money: 100
+  isOfferingMoney: 0
+  DebuffRoundsLeft: 0
 --- !u!212 &4893312756015670168
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

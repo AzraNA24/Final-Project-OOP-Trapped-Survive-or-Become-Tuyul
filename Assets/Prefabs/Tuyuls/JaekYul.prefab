@@ -47,11 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TuyulAnim: {fileID: -6011250256220811822}
-  Name: Jaek Yul; Tuyul of All Trade, Master of All
+  Name: Jaek Yul
   maxHealth: 350
   currentHealth: 0
   AttackPower: 20
   Money: 200
+  isOfferingMoney: 0
+  DebuffRoundsLeft: 0
 --- !u!212 &-6148692676596524943
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

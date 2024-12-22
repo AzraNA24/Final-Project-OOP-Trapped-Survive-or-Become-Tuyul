@@ -5,6 +5,7 @@ public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager Instance;
     public int TotalMoney = 100;
+    public ItemHUD itemHUD;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class CurrencyManager : MonoBehaviour
         {
             TotalMoney += amount;
             Debug.Log($"Uang ditambahkan sebesar {amount}. Total uang: {TotalMoney}");
+            itemHUD.UpdateMoneyUI();
         }
     }
 
@@ -32,6 +34,7 @@ public class CurrencyManager : MonoBehaviour
         {
             TotalMoney -= amount;
             Debug.Log($"Uang dikurangi sebesar {amount}. Sisa uang: {TotalMoney}");
+            itemHUD.UpdateMoneyUI();
             return true;
         }
         else
@@ -45,4 +48,5 @@ public class CurrencyManager : MonoBehaviour
     {
         Debug.Log($"Saldo saat ini: {TotalMoney}");
     }
+
 }
