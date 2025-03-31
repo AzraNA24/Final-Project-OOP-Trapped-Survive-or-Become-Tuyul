@@ -18,10 +18,11 @@ And get robbed!
 [TPBP]
 
 
-![Player-Exploration](https://hackmd.io/_uploads/HJ-zaudLJl.gif)
-![Player-TurnBased](https://hackmd.io/_uploads/SyTn6F_Ukx.gif)
-![TuyulGang1](https://hackmd.io/_uploads/SyP-Riu8yg.gif)
-![TuyulGang2](https://hackmd.io/_uploads/ByMmVnd8kx.gif)
+![Player-Exploration](https://github.com/user-attachments/assets/1bbdfe35-3a7f-498d-bc40-b5b3909cd2c8)
+
+
+![TuyulGang2](https://github.com/user-attachments/assets/54db6d3f-e4ef-4999-8983-3180d37b82de)
+
 
 
 Hum.. Azra nggak yakin, ini lebih kayak ngiklan dibanding laporan..
