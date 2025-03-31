@@ -27,5 +27,11 @@ And get robbed!
 
 Hum.. Azra nggak yakin, ini lebih kayak ngiklan dibanding laporan..
 
+## **Installation**
+1. Clone this repository
+    `git clone https://github.com/AzraNA24/Final-Project-OOP-Trapped-Survive-or-Become-Tuyul.git`
+2. Open Project in Unity
+3. You can either play it in Unity or build it to your prefered platform
+   
 ## **Authors**
 * @AzraNA24
