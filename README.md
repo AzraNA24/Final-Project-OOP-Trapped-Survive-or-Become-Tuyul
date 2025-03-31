@@ -1,5 +1,5 @@
 # *Trapped; Survive or Become Tuyul!*
-![TitleScreen](https://hackmd.io/_uploads/rkbjoTDa1l.jpg)
+![TitleScreen](https://github.com/user-attachments/assets/17cad072-58c8-4fa4-9579-7e8621319ee0)
 
 It's a group project developed .....? It takes place in ...? 
 Malas..
