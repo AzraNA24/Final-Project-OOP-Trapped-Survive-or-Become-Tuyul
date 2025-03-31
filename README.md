@@ -1,4 +1,4 @@
-![TPBP](https://github.com/user-attachments/assets/7eb3a1bf-8a7b-4f1e-8343-d115f9fb549c)# *Trapped; Survive or Become Tuyul!*
+# *Trapped; Survive or Become Tuyul!*
 ![TitleScreen](https://github.com/user-attachments/assets/17cad072-58c8-4fa4-9579-7e8621319ee0)
 
 It's a group project developed .....? It takes place in ...? 
@@ -8,15 +8,15 @@ Malas..
 #### Enjoy exploring castle
 Nanti disini gif ekslporasi
 
-#### Engaging TurnBased Combat With Tuyul
+#### Engaging TurnBased Combat With Tuyul  
 ![Turnbased](https://github.com/user-attachments/assets/f01cb259-ff24-413f-b228-a877bbd011a4)
 
 
-Rob!
+Rob!  
 ![Exploration](https://github.com/user-attachments/assets/72ceb77e-8539-4510-9d1d-d4a57007b54f)
 
 
-And get robbed! 
+And get robbed!   
 ![TPBP](https://github.com/user-attachments/assets/8b7d6db2-1af2-4b65-b959-e2b59023ed67)
 
 
