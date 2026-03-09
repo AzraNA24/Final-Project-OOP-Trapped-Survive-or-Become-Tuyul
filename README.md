@@ -1,17 +1,15 @@
 # *Trapped; Survive or Become Tuyul!*
 ![TitleScreen](https://github.com/user-attachments/assets/17cad072-58c8-4fa4-9579-7e8621319ee0)
 <p align="center">
-<img src="https://img.shields.io/badge/C++-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
+<img src="https://img.shields.io/badge/C#-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
 <img src="https://img.shields.io/badge/Unity-DD0000?style=for-the-badge&logo=libgdx&logoColor=white" />
-<img src="https://img.shields.io/badge/ClipStudioPaint-00FFFF?style=for-the-badge&logo=neon&logoColor=black" />
+<img src="https://img.shields.io/badge/Clip-Studio-Paint-00FFFF?style=for-the-badge&logo=neon&logoColor=black" />
 </p>
 
-It's a group project developed .....? It takes place in ...? 
-Malas..
+It's a group project developed for OOP Final Project. Taking place in an abandoned castle infested by Tuyul! Try your best to Survive!
 
 ## Feature
 #### Enjoy exploring castle
-Nanti disini gif ekslporasi
 
 #### Engaging TurnBased Combat With Tuyul  
 ![Turnbased](https://github.com/user-attachments/assets/f01cb259-ff24-413f-b228-a877bbd011a4)
@@ -31,9 +29,6 @@ And get robbed!
 
 ![TuyulGang2](https://github.com/user-attachments/assets/54db6d3f-e4ef-4999-8983-3180d37b82de)
 
-
-
-Hum.. Azra nggak yakin, ini lebih kayak ngiklan dibanding laporan..
 
 ## **Installation**
 1. Clone this repository  
