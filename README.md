@@ -1,10 +1,11 @@
 # *Trapped; Survive or Become Tuyul!*
 ![TitleScreen](https://github.com/user-attachments/assets/17cad072-58c8-4fa4-9579-7e8621319ee0)
 <p align="center">
-![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
-![Unity](https://img.shields.io/badge/Unity-101010?style=for-the-badge&logo=unity&logoColor=white)
-![Clip Studio Paint](https://img.shields.io/badge/Clip%20Studio%20Paint-212529?style=for-the-badge&logo=clipstudiopaint&logoColor=white)
+  <img src="https://img.shields.io/badge/C%23-239120?style=flat-square&logo=c-sharp&logoColor=white" alt="C#">
+  <img src="https://img.shields.io/badge/Unity-101010?style=flat-square&logo=unity&logoColor=white" alt="Unity">
+  <img src="https://img.shields.io/badge/Clip_Studio_Paint-212529?style=flat-square&logo=clipstudiopaint&logoColor=white" alt="CSP">
 </p>
+
 
 It's a group project developed for OOP Final Project. Taking place in an abandoned castle infested by Tuyul! Try your best to Survive!
 
