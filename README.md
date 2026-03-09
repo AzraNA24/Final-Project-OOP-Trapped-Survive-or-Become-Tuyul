@@ -1,5 +1,10 @@
 # *Trapped; Survive or Become Tuyul!*
 ![TitleScreen](https://github.com/user-attachments/assets/17cad072-58c8-4fa4-9579-7e8621319ee0)
+<p align="center">
+<img src="https://img.shields.io/badge/C++-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
+<img src="https://img.shields.io/badge/Unity-DD0000?style=for-the-badge&logo=libgdx&logoColor=white" />
+<img src="https://img.shields.io/badge/ClipStudioPaint-00FFFF?style=for-the-badge&logo=neon&logoColor=black" />
+</p>
 
 It's a group project developed .....? It takes place in ...? 
 Malas..
